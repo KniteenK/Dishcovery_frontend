@@ -26,7 +26,7 @@ const Login = () => {
       return;
     }
     try {
-      const url = "http//localhost:3333/api/v1/user/signIn";
+      const url = "https://localhost:3333/api/v1/user/signIn";
       const body = { email, password }; 
       const response = await axios.post(url, body);
     
@@ -41,10 +41,8 @@ const Login = () => {
       }
       
     } catch (error) {
-      console.error('An error occurred:', error); // Log the error for debugging
-      const errorMessage = error.response?.data?.message || 'An error occurred. Please try again.';
-      console.log(errorMessage);
-      toast.error(errorMessage);
+      console.log('An error occurred: ', error.message);
+      toast.error(error.message);
     }
     };
 
