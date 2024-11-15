@@ -49,7 +49,7 @@ const CompatibilityTest = () => {
             value={ingredient1}
             onChange={(e) => setIngredient1(e.target.value)}
             placeholder="e.g. Ginger"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
           />
         </div>
 
@@ -61,7 +61,7 @@ const CompatibilityTest = () => {
             value={ingredient2}
             onChange={(e) => setIngredient2(e.target.value)}
             placeholder="e.g. Cinnamon"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
           />
         </div>
 
@@ -73,7 +73,7 @@ const CompatibilityTest = () => {
             value={ingredient3}
             onChange={(e) => setIngredient3(e.target.value)}
             placeholder="e.g. Pumpkin"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
           />
         </div>
 
@@ -81,13 +81,13 @@ const CompatibilityTest = () => {
         <div className="flex justify-between">
           <button
             onClick={handleCheckCompatibility}
-            className="w-1/2 p-3 bg-white text-purple-600 border border-purple-600 rounded-md hover:bg-purple-50 mr-2"
+            className="w-1/2 p-3 bg-white text-tertiary border border-tertiary rounded-md hover:bg-purple-50 mr-2"
           >
             Check Compatibility
           </button>
           <button
             onClick={handleGenerateRecipe}
-            className="w-1/2 p-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 ml-2"
+            className="w-1/2 p-3 bg-tertiary text-white rounded-md hover:bg-tertiary ml-2"
           >
             Generate Recipe
           </button>
