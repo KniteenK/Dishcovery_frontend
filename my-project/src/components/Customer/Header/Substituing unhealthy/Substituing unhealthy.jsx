@@ -18,8 +18,8 @@ export default function SubstituingUnhealthy() {
     setSubstitutes([]);
 
     try {
-      const response = await axios.get(`https://api.example.com/substitutes?ingredient=${ingredient}`);
-      setSubstitutes(response.data.substitutes);
+      const response = await axios.get(`http://localhost:3333/api/v1/user/substitute`);
+      setSubstitutes(response.data.substitutes || []);
     } catch (err) {
       setError("Failed to fetch substitutes. Please try again.");
     } finally {

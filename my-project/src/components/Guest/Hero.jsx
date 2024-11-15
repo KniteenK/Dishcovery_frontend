@@ -12,10 +12,10 @@ const Hero = ({ heading, message }) => {
         <h2 className="text-5xl font-bold">{heading}</h2>
         <p className="py-5 text-xl">{message}</p>
         <div className=" py-10 flex justify-around ">
-          <a href="/sign-in">
+          <a href="/login">
             <button className="px-8 py-2 border">Login</button>
           </a>
-          <a href="/sign-up">
+          <a href="/signup">
             <button className="px-8 py-2 border">Signup</button>
           </a>
         </div>
