@@ -13,10 +13,10 @@ const Hero = ({ heading, message }) => {
         <p className="py-5 text-xl">{message}</p>
         <div className=" py-10 flex justify-around ">
           <a href="/sign-in">
-            <button className="px-8 py-2 border">Login</button>
+            <button className="px-8 py-2 border bg-secondary">Login</button>
           </a>
           <a href="/sign-up">
-            <button className="px-8 py-2 border">Signup</button>
+            <button className="px-8 py-2 border bg-primary">Signup</button>
           </a>
         </div>
       </div>

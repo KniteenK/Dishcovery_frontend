@@ -2,6 +2,7 @@ import React from "react";
 import GuestHeader from "./components/Guest/Header/GuestHeader";
 import Hero from "./components/Guest/Hero"
 import Features from "./components/Guest/Features";
+import Footer from "./components/Guest/Footer/GuestFooter"
 
 
 const t={
@@ -18,6 +19,9 @@ export default function GuestLayout() {
       />
       <section className="bg-white" id="features">
         <Features />
+      </section>
+      <section>
+        <Footer/>
       </section>
     
     </div>

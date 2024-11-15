@@ -15,7 +15,7 @@ const GuestHeader = () => {
   useEffect(() => {
     const changeColor = () => {
       if (window.scrollY >= 90) {
-        setColor("#ffffff");
+        setColor("#f38105");
         setTextColor("#000000");
       } else {
         setColor("transparent");
