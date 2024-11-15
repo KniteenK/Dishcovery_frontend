@@ -7,7 +7,13 @@ module.exports = {
     "./node_modules/@nextui-org/theme/dist/components/(button|checkbox|slider|ripple|spinner|popover).js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#f38105',//orange
+        secondary: '#f8a62e', // Yellow
+        tertiary: '#ee8a3d', // light orange
+      },
+    },
   },
   plugins: [nextui()],
 };

@@ -1,6 +1,5 @@
 import React from "react";
-// import a from "next/a";
-// import img from "next/img";
+
 
 const Features = () => {
   return (
@@ -11,7 +10,7 @@ const Features = () => {
             <img
               alt="feature"
               className="object-cover object-center h-full w-full"
-              src="/home2.jpg"
+              src="/features.jpg"
               width={720}
               height={600}
             />
@@ -19,133 +18,80 @@ const Features = () => {
           <div className="flex flex-col flex-wrap lg:py-6 -mb-10 lg:w-1/2 lg:pl-12 lg:text-left text-center">
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  stroke-linejoin="round"
-                  strokeWidth="2"
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
                 >
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+                <path d="M4 7h16l-4-4" />
+                <path d="M20 17H4l4 4" />
                 </svg>
+      
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  Manage Inventory
+                ⁠Healthy Swap
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Farmers can efficiently store and organize their inventory
-                  through the application, streamlining their agricultural
-                  operations.
+                Transform your recipes with healthier alternatives! This feature helps you replace unhealthy ingredients in any dish with nutritious substitutes, ensuring you enjoy tasty meals without compromising on health.
+
                 </p>
-                <a
-                  className="mt-3 text-indigo-500 inline-flex items-center"
-                  href="/"
-                >
-                  Learn More
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    stroke-linejoin="round"
-                    strokeWidth="2"
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </a>
+    
               </div>
             </div>
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  stroke-linejoin="round"
-                  strokeWidth="2"
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
                 >
-                  <circle cx="6" cy="6" r="3"></circle>
-                  <circle cx="6" cy="18" r="3"></circle>
-                  <path d="M20 4L8.12 15.88M14.47 14.48L20 20M8.12 8.12L12 12"></path>
+                <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
                 </svg>
               </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  Report an issue to the government.
+                ⁠ ⁠Meal Recommender
+
                 </h2>
                 <p className="leading-relaxed text-base">
-                  A channel for farmers to raise issues they encounter in their
-                  daily farming activities. These concerns are made public,
-                  creating transparency and putting pressure on the government
-                  to address them promptly. By aggregating and highlighting
-                  these challenges, farmers can collectively advocate for policy
-                  changes and improvements in the agricultural sector.
+                et meal recommendations tailored to your unique dietary needs. Simply set your nutritional limits for breakfast, lunch, and dinner, and let us suggest delicious recipes that fit your preferences perfectly.
                 </p>
-                <a
-                  className="mt-3 text-indigo-500 inline-flex items-center"
-                  href="/"
-                >
-                  Learn More
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    stroke-linejoin="round"
-                    strokeWidth="2"
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </a>
               </div>
             </div>
             <div className="flex flex-col mb-10 lg:items-start items-center">
               <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
-                <svg
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  stroke-linejoin="round"
-                  strokeWidth="2"
-                  className="w-6 h-6"
-                  viewBox="0 0 24 24"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                stroke="currentColor"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                className="w-6 h-6"
+                viewBox="0 0 24 24"
                 >
-                  <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
-                  <circle cx="12" cy="7" r="4"></circle>
+                <path d="M5 13l4 4L19 7" />
                 </svg>
-              </div>
+                            </div>
               <div className="flex-grow">
                 <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
-                  Deal with buyers
+                ⁠ ⁠Ingredient Compatibility Checker
+
                 </h2>
                 <p className="leading-relaxed text-base">
-                  Empowers farmers to sell via bidding and connects them with
-                  buyers.
+                Want to experiment with new ingredients? Use our Compatibility Checker to input your favorite ingredients and discover which ones work best together. Then, let us generate creative recipes just for you, combining your selected ingredients in delicious ways!
                 </p>
-                <a
-                  className="mt-3 text-indigo-500 inline-flex items-center"
-                  href="/"
-                >
-                  Learn More
-                  <svg
-                    fill="none"
-                    stroke="currentColor"
-                    strokeLinecap="round"
-                    stroke-linejoin="round"
-                    strokeWidth="2"
-                    className="w-4 h-4 ml-2"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M5 12h14M12 5l7 7-7 7"></path>
-                  </svg>
-                </a>
               </div>
             </div>
           </div>
