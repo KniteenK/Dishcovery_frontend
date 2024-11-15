@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Login from './components/auth/Login.jsx'
 import Register from './components/auth/Register.jsx'
+import Home from './components/Customer/Header/Home/Home.jsx'
 import GuestLayout from './GuestLayout.jsx'
 import './index.css'
 const router = createBrowserRouter([
