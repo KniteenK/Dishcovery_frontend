@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
 import Home from './components/Customer/Header/Home/Home.jsx';
-import NewRecipe from './components/Customer/Header/New Recipe/New Recipe .jsx';
+import CompatibilityTest from './components/Customer/Header/Compatibility test/CompatibilityTest.jsx';
 import RecommendingMeals from './components/Customer/Header/Recommending meals/RecommendingMeals.jsx';
 import SubstituingUnhealthy from './components/Customer/Header/Substituing unhealthy/Substituing unhealthy.jsx';
 import Profile from './components/Customer/Profile/Profile.jsx';
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
         element: <RecommendingMeals />
       },
       {
-        path: 'NewRecipe',
-        element: <NewRecipe />
+        path: 'CompatibilityTest',
+        element: <CompatibilityTest />
       }
     ]
   },
