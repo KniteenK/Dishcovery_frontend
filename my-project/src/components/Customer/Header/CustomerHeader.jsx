@@ -65,8 +65,8 @@ export default function CustomerHeader() {
                 <p className="font-bold">Signed in as</p>
                 <p className="font-bold">@{username}</p>
               </DropdownItem>
-              <DropdownItem key="settings" as={NavLink} to="/customer/ProfileSettings/profile">
-                My Settings
+              <DropdownItem key="settings" as={NavLink} to="/customer/profile-settings/profile">
+                Profile
               </DropdownItem>
               {/* <DropdownItem key="analytics">
                 Analytics
