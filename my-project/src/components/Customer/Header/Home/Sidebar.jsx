@@ -49,7 +49,7 @@ const FilterComponent = () => {
   };
 
   return (
-    <div className="w-1/4 p-4 drop-shadow-lg shadow-lg rounded-lg h-screen overflow-y-auto">
+    <div className="w-1/4 p-4  rounded-lg h-screen overflow-y-auto">
       <h2 className="text-lg font-semibold mb-4">Continent</h2>
       <CheckboxGroup
         label="Select One Continent"

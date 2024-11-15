@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 
 export default function RecommendingMeals() {
@@ -14,23 +15,35 @@ export default function RecommendingMeals() {
     }
   };
 
-  const handleSubmit = () => {
-    // Fetch dish data based on the submitted meals
-    fetchDishes().then(data => {
-      setDishes(data);
-      setSubmitted(true);
-    });
-  };
-
-  const fetchDishes = async () => {
-    // Replace with your actual data fetching logic
-    return [
+  const handleSubmit = async () => {
+    const meals = [
       { meal: "Breakfast", name: "Oatmeal", calories: 300, protein: 10, carbs: 50, fat: 5, url: "", image: "path/to/breakfast.jpg" },
       { meal: "Lunch", name: "Chicken Salad", calories: 500, protein: 30, carbs: 40, fat: 20, url: "", image: "path/to/lunch.jpg" },
       { meal: "Dinner", name: "Grilled Salmon", calories: 400, protein: 35, carbs: 20, fat: 15, url: "", image: "path/to/dinner.jpg" },
-      { meal: "Snack 1", name: "Greek Yogurt", calories: 150, protein: 15, carbs: 10, fat: 5, url: "", image: "path/to/snack1.jpg" },
-      { meal: "Snack 2", name: "Protein Bar", calories: 200, protein: 20, carbs: 25, fat: 10, url: "", image: "path/to/snack2.jpg" }
     ];
+
+    if (snackCount >= 1) {
+      meals.push({ meal: "Snack 1", name: "Greek Yogurt", calories: 150, protein: 15, carbs: 10, fat: 5, url: "", image: "path/to/snack1.jpg" });
+    }
+    if (snackCount === 2) {
+      meals.push({ meal: "Snack 2", name: "Protein Bar", calories: 200, protein: 20, carbs: 25, fat: 10, url: "", image: "path/to/snack2.jpg" });
+    }
+
+    setLoading(true);
+    setError("");
+    setDishes([]);
+
+    try {
+      const responses = await Promise.all(meals.map(meal => axios.post("http://localhost:3333/api/v1/user/getSubstitute", meal)));
+      responses.forEach(response => console.log(response.data));
+      setDishes(meals);
+      setSubmitted(true);
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      setError("Failed to fetch substitutes. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleMoreClick = (dish) => {
@@ -45,7 +58,7 @@ export default function RecommendingMeals() {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-6xl font-bold mb-4">Recommending Meals</h1>
+      <h1 className="text-4xl font-bold mb-4 text-center">Recommending Meals</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Breakfast Card */}
         <div className="border rounded-lg p-4 shadow-md">
@@ -123,7 +136,7 @@ export default function RecommendingMeals() {
                   
                   <button onClick={() => handleMoreClick(dish)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
                 </div>
-                <div className="w-full md:w-1/3 mt-4 md:mt-0 md:ml-4">
+                <div className=" md:w-1/6 md:ml-4">
                   <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg" />
                 </div>
               </div>
@@ -152,7 +165,6 @@ export default function RecommendingMeals() {
           </div>
         </div>
       )}
-  
     </div>
   );
 }

@@ -1,10 +1,10 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from 'react-flag-kit';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -38,7 +38,7 @@ const Signup = () => {
     };
 
     console.log('Request Body:', requestBody);
-
+    const textColor = '#ee8a3d'; // Define the text color
     try {
       const response = await axios.post('http://localhost:3333/api/v1/user/signUp', requestBody, {
         headers: {
@@ -75,6 +75,7 @@ const Signup = () => {
   const [continent, setContinent] = useState('');
   const [subRegion, setSubRegion] = useState('');
   const [countries, setCountries] = useState([]);
+  const textColor = "#000"; // Define the text color
   const [cities, setCities] = useState([]);
 
   const genderOptions = [
@@ -149,7 +150,15 @@ const Signup = () => {
 
   return (
     <div className="font-sans">
-      <div className="min-h-[85vh] flex flex-col items-center justify-center py-6 px-4">
+      <div className="flex justify-start ml-[6%] items-center w-full p-4 overflow-hidden">
+      <NavLink className="flex justify-around items-center" to="/">
+          <img src="/logo.png" alt="logo" width="70" height="40" />
+          <h1 style={{ color: `${textColor}` }} className="font-bold text-4xl">
+            Dishcovery
+          </h1>
+        </NavLink>
+      </div>
+      <div className="min-h-[85vh] ml-[30%] flex flex-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full">
           <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
             <form className="space-y-4">
