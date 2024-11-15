@@ -39,10 +39,10 @@ export default function CustomerHeader() {
             </NavLink>
           </NavbarItem>
           <NavbarItem className="mr-4">
-            <NavLink to="/customer/NewRecipe" className={({ isActive }) =>
+            <NavLink to="/customer/CompatibilityTest" className={({ isActive }) =>
               `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 ${isActive ? "text-orange-700" : "text-gray-700"}`
             }>
-              New Recipe
+              Compatibility Test
             </NavLink>
           </NavbarItem>
         </NavbarContent>
