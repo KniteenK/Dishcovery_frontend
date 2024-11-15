@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FlagIcon } from 'react-flag-kit';
 import { Link, useNavigate } from 'react-router-dom';
@@ -11,9 +10,9 @@ const Signup = () => {
 
   const OnSubmit = async () => {
     if (
-      [username, email, password, contactNumber, firstName, lastName, city, country].some((field) => field.trim() === "")
+      [username, email, password, continent, subRegion].some((field) => field.trim() === "")
     ) {
-      toast.error('Please fill all the fields', {
+      toast.error('Please fill all the required fields', {
         position: 'bottom-right',
         autoClose: 2000,
         style: {
@@ -28,12 +27,12 @@ const Signup = () => {
       username,
       email,
       password,
-      contactNumber,
-      first_name: firstName,
-      last_name: lastName,
-      address: {
-        city,
-        country,
+      gender,
+      age,
+      allergies,
+      region: {
+        continent,
+        subRegion,
       },
     };
 
@@ -69,21 +68,37 @@ const Signup = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [city, setCity] = useState('');
-  const [country, setCountry] = useState('');
+  const [gender, setGender] = useState('');
+  const [age, setAge] = useState('');
+  const [allergies, setAllergies] = useState([]);
+  const [continent, setContinent] = useState('');
+  const [subRegion, setSubRegion] = useState('');
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
 
+  const genderOptions = [
+    { value: 'male', label: 'Male' },
+    { value: 'female', label: 'Female' },
+    { value: 'other', label: 'Other' }
+  ];
+
+  const continentOptions = [
+    { value: 'Africa', label: 'Africa' },
+    { value: 'Asia', label: 'Asia' },
+    { value: 'Europe', label: 'Europe' },
+    { value: 'North America', label: 'North America' },
+    { value: 'South America', label: 'South America' },
+    { value: 'Australia', label: 'Australia' },
+    { value: 'Antarctica', label: 'Antarctica' }
+  ];
+
   // Function to format the country options with flags
-const formatCountryOption = ({ value, label }) => (
-  <div className="flex items-center">
-    <FlagIcon code={value} size={24} className="mr-2" />
-    <span>{label}</span>
-  </div>
-);
+  const formatCountryOption = ({ value, label }) => (
+    <div className="flex items-center">
+      <FlagIcon code={value} size={24} className="mr-2" />
+      <span>{label}</span>
+    </div>
+  );
 
   useEffect(() => {
     // Fetch countries
@@ -97,17 +112,16 @@ const formatCountryOption = ({ value, label }) => (
         setCountries(countryList);
       });
   }, []);
-  
 
   useEffect(() => {
-    if (country) {
-      // Fetch cities based on selected country
+    if (continent) {
+      // Fetch cities based on selected continent
       fetch(`https://countriesnow.space/api/v0.1/countries/cities`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ country })
+        body: JSON.stringify({ country: continent })
       })
         .then(response => response.json())
         .then(data => {
@@ -115,25 +129,25 @@ const formatCountryOption = ({ value, label }) => (
           setCities(cityList);
         });
     }
-  }, [country]);
+  }, [continent]);
 
   const handleUsernameChange = (e) => setUsername(e.target.value);
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  const handleContactNumberChange = (e) => setContactNumber(e.target.value);
-  const handleFirstNameChange = (e) => setFirstName(e.target.value);
-  const handleLastNameChange = (e) => setLastName(e.target.value);
-  const handleCityChange = (e) => setCity(e.target.value);
-  const handleCountryChange = (e) => setCountry(e.target.value);
+  const handleGenderChange = (option) => setGender(option.value);
+  const handleAgeChange = (e) => setAge(e.target.value);
+  const handleAllergiesChange = (e) => setAllergies(e.target.value.split(','));
+  const handleContinentChange = (option) => setContinent(option.value);
+  const handleSubRegionChange = (e) => setSubRegion(e.target.value);
 
   const [showPassword, setShowPassword] = useState(false);
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
+
   return (
     <div className="font-sans">
-      
       <div className="min-h-[85vh] flex flex-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full">
           <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
@@ -145,55 +159,8 @@ const formatCountryOption = ({ value, label }) => (
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-gray-800 text-sm mb-2 block">First Name</label>
-                  <input name="firstName" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter first name" value={firstName} onChange={handleFirstNameChange} />
-                </div>
-                <div>
-                  <label className="text-gray-800 text-sm mb-2 block">Last Name</label>
-                  <input name="lastName" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter last name" value={lastName} onChange={handleLastNameChange} />
-                </div>
-                <div>
-                  <label className="text-gray-800 text-sm mb-2 block">Contact Number</label>
-                  <input name="contactNumber" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter contact number" value={contactNumber} onChange={handleContactNumberChange} />
-                </div>
-                <div>
-                  <label className="text-gray-800 text-sm mb-2 block">Email Address</label>
-                  <input name="email" type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email address" value={email} onChange={handleEmailChange} />
-                </div>
-                <Select
-                  value={country ? countries.find(c => c.label === country) : null}
-                  onChange={(option) => setCountry(option.label)}
-                  options={countries}
-                  formatOptionLabel={formatCountryOption}
-                  placeholder="Select country"
-                  className="text-sm"
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      padding: '8px',
-                      border: '1px solid #ccc',
-                      borderRadius: '8px',
-                    }),
-                  }}
-                />
-                <Select
-                  value={city ? { value: city, label: city } : null}
-                  onChange={(option) => setCity(option.label)}
-                  options={cities.map(city => ({ value: city, label: city }))}
-                  placeholder="Select city"
-                  className="text-sm"
-                  styles={{
-                    control: (provided) => ({
-                      ...provided,
-                      padding: '8px',
-                      border: '1px solid #ccc',
-                      borderRadius: '8px',
-                    }),
-                  }}
-                />
-                <div>
-                  <label className="text-gray-800 text-sm mb-2 block">User name</label>
-                  <input name="username" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter user name" value={username} onChange={handleUsernameChange} />
+                  <label className="text-gray-800 text-sm mb-2 block">Username</label>
+                  <input name="username" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
                 </div>
                 <div>
                   <label className="text-gray-800 text-sm mb-2 block">Password</label>
@@ -203,6 +170,40 @@ const formatCountryOption = ({ value, label }) => (
                       <path d={showPassword ? "M64 104C22.127 104 1.367 67.496.504 65.943a4 4 0 0 1 0-3.887C1.367 60.504 22.127 24 64 24s62.633 36.504 63.496 38.057a4 4 0 0 1 0 3.887C126.633 67.496 105.873 104 64 104zM8.707 63.994C13.465 71.205 32.146 96 64 96c31.955 0 50.553-24.775 55.293-31.994C114.535 56.795 95.854 32 64 32 32.045 32 13.447 56.775 8.707 63.994z" : "M64 16c-34.193 0-62.672 23.995-63.541 25.005-1.459 1.822-1.459 4.168 0 5.99.869 1.01 29.348 25.005 63.541 25.005 34.193 0 62.672-23.995 63.541-25.005 1.459-1.822 1.459-4.168 0-5.99C126.672 39.995 98.193 16 64 16zm-5.506 66.632L36.258 60.396l8.728-8.728 14.508 14.508 32.258-32.258 8.728 8.728-40.506 40.506z"} data-original="#000000"></path>
                     </svg>
                   </div>
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Email</label>
+                  <input name="email" type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email" value={email} onChange={handleEmailChange} />
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Gender</label>
+                  <Select
+                    options={genderOptions}
+                    value={genderOptions.find(option => option.value === gender)}
+                    onChange={handleGenderChange}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Age</label>
+                  <input name="age" type="number" className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter age" value={age} onChange={handleAgeChange} />
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Allergies</label>
+                  <input name="allergies" type="text" className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter allergies (comma separated)" value={allergies} onChange={handleAllergiesChange} />
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Continent</label>
+                  <Select
+                    options={continentOptions}
+                    value={continentOptions.find(option => option.value === continent)}
+                    onChange={handleContinentChange}
+                    className="mt-1"
+                  />
+                </div>
+                <div>
+                  <label className="text-gray-800 text-sm mb-2 block">Sub-Region</label>
+                  <input name="subRegion" type="text" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter sub-region" value={subRegion} onChange={handleSubRegionChange} />
                 </div>
               </div>
 

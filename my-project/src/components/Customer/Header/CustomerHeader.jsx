@@ -2,7 +2,7 @@ import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Navbar, NavbarCo
 import React from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
-function CustomerHeader() {
+export default function CustomerHeader() {
   const navigate = useNavigate();
   const avatar = "path/to/avatar.jpg"; // Replace with actual avatar path
   const username = "username"; // Replace with actual username
@@ -14,7 +14,7 @@ function CustomerHeader() {
   };
 
   return (
-    <header className="shadow sticky z-50 top-0">
+    <header className="shadow sticky top-0 z-50 bg-white">
       <Navbar className="h-16">
         <NavbarContent>
           <NavbarItem className="mr-4">
@@ -39,7 +39,7 @@ function CustomerHeader() {
             </NavLink>
           </NavbarItem>
         </NavbarContent>
-        <NavbarContent className="ml-auto mr-[8%]"> {/* This will push the profile dropdown to the right */}
+        <NavbarContent className="ml-auto">
           <Dropdown placement="bottom-start">
             <DropdownTrigger>
               <User
@@ -78,5 +78,3 @@ function CustomerHeader() {
     </header>
   );
 }
-
-export default CustomerHeader;
