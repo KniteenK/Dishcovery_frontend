@@ -7,7 +7,14 @@ module.exports = {
     "./node_modules/@nextui-org/theme/dist/components/(button|ripple|spinner).js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: '#fc8019', //swiggy orange
+        secondary: '#fd9c4b', // lighter orange
+        // text: '#333333',
+        // background: '#f4f4f4',
+      },
+    },
   },
   plugins: [nextui()],
 };
