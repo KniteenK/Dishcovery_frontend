@@ -1,19 +1,20 @@
 import axios from 'axios';
-// import Cookies from 'js-cookie';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
 const Login = () => {
   const navigate = useNavigate();
-  
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
   const handleEmailChange = (e) => setEmail(e.target.value);
   const handlePasswordChange = (e) => setPassword(e.target.value);
-  const onSubmit = async () =>{
+
+  const onSubmit = async () => {
     if (email === '' || password === '') {
       toast.error('Please fill all the fields', {
         position: 'bottom-right',
@@ -25,26 +26,37 @@ const Login = () => {
       });
       return;
     }
-    try {
-      const url = "https://localhost:3333/api/v1/user/signIn";
-      const body = { email, password }; 
-      const response = await axios.post(url, body);
-    
-      if (response.status === 200) {
 
-        alert('Logged in successfully');
-        Cookies.set('userData', JSON.stringify(response.data.data.userData), { expires: 1 }); // Expires in 7 days
-        Cookies.set('accessToken', JSON.stringify(response.data.data.accessToken))
-        Cookies.set('refreshToken', JSON.stringify(response.data.data.refreshToken))
-        navigate('/customer');
-       
+    try {
+      const url = "http://localhost:3333/api/v1/user/signIn"; // Ensure this URL is correct
+      const body = { email, password };
+      const response = await axios.post(url, body);
+
+      if (response.status === 200) {
+        toast.success('Logged in successfully', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+        // Assuming response.data contains the necessary data
+        const { userData, accessToken, refreshToken } = response.data.data;
+        // Cookies.set('userData', JSON.stringify(userData), { expires: 1 }); // Uncomment if using cookies
+        // Cookies.set('accessToken', accessToken);
+        // Cookies.set('refreshToken', refreshToken);
+        navigate('/customer'); // Redirect to customer page after successful login
+      } else {
+        toast.error(response.data.message || 'Failed to log in', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
       }
-      
     } catch (error) {
-      console.log('An error occurred: ', error.message);
-      toast.error(error.message);
+      console.error('An error occurred:', error.message);
+      toast.error(error.message, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
     }
-    };
+  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -53,11 +65,13 @@ const Login = () => {
   return (
     <div className="font-sans">
       <div className="flex justify-start items-center w-full p-4 overflow-hidden">
-      
+        <Link to="/">
+          <img src="/path/to/logo.png" alt="Logo" className="h-28 w-auto cursor-pointer" />
+        </Link>
       </div>
       <div className="min-h-[85vh] flex flex-col items-center justify-center py-6 px-4">
         <div className="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full">
-          <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-[0_2px_22px_-4px_rgba(93,96,127,0.2)] max-md:mx-auto">
+          <div className="border border-gray-300 rounded-lg p-6 max-w-md shadow-lg max-md:mx-auto">
             <form className="space-y-4">
               <div className="mb-8">
                 <h3 className="text-gray-800 text-3xl font-extrabold">Log In</h3>
@@ -66,8 +80,15 @@ const Login = () => {
               <div>
                 <label className="text-gray-800 text-sm mb-2 block">Email</label>
                 <div className="relative flex items-center">
-                  <input name="email" type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email or username" value={email}
-              onChange={handleEmailChange} />
+                  <input
+                    name="email"
+                    type="email"
+                    required
+                    className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600"
+                    placeholder="Enter email or username"
+                    value={email}
+                    onChange={handleEmailChange}
+                  />
                 </div>
               </div>
               <div>
@@ -75,7 +96,6 @@ const Login = () => {
                 <div className="relative flex items-center">
                   <input
                     name="password"
-
                     type={showPassword ? 'text' : 'password'}
                     required
                     value={password}
@@ -98,12 +118,18 @@ const Login = () => {
               </div>
 
               <div className="mt-8">
-                <button type="button" className="w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none" onClick={onSubmit}>
+                <button
+                  type="button"
+                  className="w-full shadow-xl py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                  onClick={onSubmit}
+                >
                   Log In
                 </button>
               </div>
 
-              <p className="mt-8 text-center text-sm text-gray-800">Don't have an account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign up here</Link></p>
+              <p className="mt-8 text-center text-sm text-gray-800">
+                Don't have an account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign up here</Link>
+              </p>
             </form>
           </div>
         </div>
