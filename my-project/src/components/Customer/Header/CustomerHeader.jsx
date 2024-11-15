@@ -1,17 +1,33 @@
 import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Navbar, NavbarContent, NavbarItem, User } from "@nextui-org/react";
-import React from "react";
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 
 export default function CustomerHeader() {
   const navigate = useNavigate();
-  const avatar = "path/to/avatar.jpg"; // Replace with actual avatar path
-  const username = "username"; // Replace with actual username
-  const fullName = "Full Name"; // Replace with actual full name
+  const [userData, setUserData] = useState(null);
+
+  useEffect(() => {
+    const storedUserData = Cookies.get('userData');
+    if (storedUserData) {
+      setUserData(JSON.parse(storedUserData));
+    }
+  }, []);
 
   const handleLogout = () => {
-    // Add logout logic here
+    // Clear cookies and add logout logic here
+    Cookies.remove('userData');
+    Cookies.remove('accessToken');
+    Cookies.remove('refreshToken');
     navigate("/");
   };
+
+  if (!userData) {
+    return null; // or a loading spinner
+  }
+
+  const { avatar, username, fullName } = userData;
+
 
   return (
     <header className="shadow sticky top-0 z-50 bg-primary
@@ -27,6 +43,7 @@ export default function CustomerHeader() {
       {/* Centered navbar items */}
       <NavbarContent className="flex flex-1 justify-center space-x-4">
         <NavbarItem className="mr-4">
+
           <NavLink
             to="/customer/home"
             className={({ isActive }) =>
@@ -104,5 +121,6 @@ export default function CustomerHeader() {
     </Navbar>
   </header>
   
+
   );
 }

@@ -1,22 +1,19 @@
+import axios from 'axios';
 import React, { useState } from 'react';
 
 const CompatibilityTest = () => {
-  // State variables for each ingredient and response
   const [ingredient1, setIngredient1] = useState('');
   const [ingredient2, setIngredient2] = useState('');
   const [ingredient3, setIngredient3] = useState('');
-  const [response, setResponse] = useState(null); // State to hold response from API
+  const [response, setResponse] = useState('');
 
-  // Common function to send data to the backend
   const sendToBackend = async (endpoint, ingredients) => {
     try {
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ingredients, tone, language }),
+      const response = await axios.post(endpoint, { ingredients }, {
+        headers: { 'Content-Type': 'application/json' }
       });
-      const data = await response.json();
-      setResponse(data.message || 'Response received'); // Update with the response from backend
+
+      setResponse(response.data.message || 'Response received'); // Update with the response from backend
     } catch (error) {
       console.error('Error communicating with the backend:', error);
       setResponse('An error occurred while processing your request.');
@@ -26,14 +23,15 @@ const CompatibilityTest = () => {
   // Handle form submission for compatibility check
   const handleCheckCompatibility = () => {
     const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
-    sendToBackend('/api/check-compatibility', ingredients); // Replace with your backend endpoint
+    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients); // Use the provided endpoint
   };
 
   // Handle form submission for recipe generation
   const handleGenerateRecipe = () => {
     const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
-    sendToBackend('/api/generate-recipe', ingredients); // Replace with your backend endpoint
+    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients); // Use the provided endpoint
   };
+  console.log(ingredient1, ingredient2, ingredient3);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
