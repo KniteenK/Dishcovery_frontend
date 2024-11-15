@@ -7,18 +7,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Login = () => {
   const navigate = useNavigate();
   
-  // const notify = () => {
-  //   toast.success('Logged in successfully', {
-  //     position: 'bottom-right',
-  //     autoClose: 1000,
-  //     style: {
-  //       backgroundColor: 'green',
-  //       color: 'white',
-  //     },
-  //   });
-    
-  //   setTimeout(() => navigate('/Home'), 1000); // Redirect to dashboard after login
-  // };
 
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
@@ -39,27 +27,17 @@ const Login = () => {
     }
     try {
       const url = "http//localhost:3333/api/v1/user/signIn";
-      const body = { email, password }; // Construct the request body
-      // console.log(body);
+      const body = { email, password }; 
       const response = await axios.post(url, body);
     
       if (response.status === 200) {
-        // console.log('Response data:', JSON.stringify(response)); // Print the response data
-        // console.log(response.data.data.userData)
+
         alert('Logged in successfully');
         Cookies.set('userData', JSON.stringify(response.data.data.userData), { expires: 1 }); // Expires in 7 days
         Cookies.set('accessToken', JSON.stringify(response.data.data.accessToken))
         Cookies.set('refreshToken', JSON.stringify(response.data.data.refreshToken))
-
-        const role = response.data.data.role;
-        console.log(role);
-        if (role === 'hustler') {
-          navigate('/customer');
-        } else if (role === 'client') {
-          navigate('/client');
-        } else {
-          toast.error('Unknown role. Please contact support.');
-        }
+        navigate('/customer');
+       
       }
       
     } catch (error) {
@@ -130,9 +108,6 @@ const Login = () => {
               <p className="mt-8 text-center text-sm text-gray-800">Don't have an account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign up here</Link></p>
             </form>
           </div>
-          {/* <div className="lg:h-[400px] md:h-[300px] max-md:mt-8">
-            <img src="https://readymadeui.com/login-image.webp" className="w-full h-full max-md:w-4/5 mx-auto block object-cover" alt="Login Experience" />
-          </div> */}
         </div>
       </div>
       <ToastContainer />
