@@ -38,7 +38,7 @@ const Login = () => {
       return;
     }
     try {
-      const url = "http://localhost:2000/api/v1/hustler/signInHustler";
+      const url = "http//localhost:3333/api/v1/user/signIn";
       const body = { email, password }; // Construct the request body
       // console.log(body);
       const response = await axios.post(url, body);
@@ -54,7 +54,7 @@ const Login = () => {
         const role = response.data.data.role;
         console.log(role);
         if (role === 'hustler') {
-          navigate('/hustler');
+          navigate('/customer');
         } else if (role === 'client') {
           navigate('/client');
         } else {

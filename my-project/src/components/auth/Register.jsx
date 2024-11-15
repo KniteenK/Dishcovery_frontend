@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ const Signup = () => {
     console.log('Request Body:', requestBody);
 
     try {
-      const response = await axios.post('http://localhost:2000/api/v1/hustler/signupHustler', requestBody, {
+      const response = await axios.post('http://localhost:3333/api/v1/user/signUp', requestBody, {
         headers: {
           'Content-Type': 'application/json',
         },
