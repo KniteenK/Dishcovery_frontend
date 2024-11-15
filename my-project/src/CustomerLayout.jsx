@@ -1,10 +1,10 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
-import GuestHeader from './components/Guest/Header/GuestHeader';
+import CustomerHeader from './components/Customer/Header/CustomerHeader';
 function GuestLayout() {
   return (
     <>
-    <GuestHeader />
+    <CustomerHeader />
     <Outlet />
     </>
   )
