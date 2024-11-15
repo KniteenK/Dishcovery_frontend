@@ -5,28 +5,39 @@ const CompatibilityTest = () => {
   const [ingredient1, setIngredient1] = useState('');
   const [ingredient2, setIngredient2] = useState('');
   const [ingredient3, setIngredient3] = useState('');
-  const [tone, setTone] = useState('');
-  const [language, setLanguage] = useState('');
   const [response, setResponse] = useState(null); // State to hold response from API
 
-  // Handle form submission for both buttons
-  const handleCheckCompatibility = () => {
-    // Simulating an API response
-    const compatibilityMessage = `Ingredients ${ingredient1}, ${ingredient2}, and ${ingredient3} are compatible.`;
-    setResponse(compatibilityMessage);
-    // In a real scenario, make your API call here and update the response
+  // Common function to send data to the backend
+  const sendToBackend = async (endpoint, ingredients) => {
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ingredients, tone, language }),
+      });
+      const data = await response.json();
+      setResponse(data.message || 'Response received'); // Update with the response from backend
+    } catch (error) {
+      console.error('Error communicating with the backend:', error);
+      setResponse('An error occurred while processing your request.');
+    }
   };
 
+  // Handle form submission for compatibility check
+  const handleCheckCompatibility = () => {
+    const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
+    sendToBackend('/api/check-compatibility', ingredients); // Replace with your backend endpoint
+  };
+
+  // Handle form submission for recipe generation
   const handleGenerateRecipe = () => {
-    // Simulating an API response
-    const recipeMessage = `Recipe generated with ${ingredient1}, ${ingredient2}, and ${ingredient3}.`;
-    setResponse(recipeMessage);
-    // In a real scenario, make your API call here and update the response
+    const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
+    sendToBackend('/api/generate-recipe', ingredients); // Replace with your backend endpoint
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Check compatibility and generate new Recipie</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">Check compatibility and generate new Recipe</h1>
       <p className="text-gray-600 mb-8 text-center max-w-xl">
         The best tool for checking the compatibility of ingredients and generating a recipe ingredient compatibility analysis.
       </p>
