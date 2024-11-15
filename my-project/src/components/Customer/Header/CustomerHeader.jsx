@@ -61,13 +61,13 @@ export default function CustomerHeader() {
               <DropdownItem key="settings" as={NavLink} to="/customer/ProfileSettings/profile">
                 My Settings
               </DropdownItem>
-              <DropdownItem key="analytics">
+              {/* <DropdownItem key="analytics">
                 Analytics
               </DropdownItem>
               <DropdownItem key="configurations">Configurations</DropdownItem>
               <DropdownItem key="help_and_feedback">
                 Help & Feedback
-              </DropdownItem>
+              </DropdownItem> */}
               <DropdownItem key="logout" color="danger" onClick={handleLogout}>
                 Log Out
               </DropdownItem>

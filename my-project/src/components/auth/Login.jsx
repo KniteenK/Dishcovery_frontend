@@ -87,7 +87,6 @@ const Login = () => {
                 <h3 className="text-gray-800 text-3xl font-extrabold">Log In</h3>
                 <p className="text-gray-500 text-sm mt-4 leading-relaxed">Welcome back! Please login to your account.</p>
               </div>
-
               <div>
                 <label className="text-gray-800 text-sm mb-2 block">Email</label>
                 <div className="relative flex items-center">
@@ -128,7 +127,7 @@ const Login = () => {
                 </button>
               </div>
 
-              <p className="mt-8 text-center text-sm text-gray-800">Don't have an account? <Link to="/Intermediate" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign up here</Link></p>
+              <p className="mt-8 text-center text-sm text-gray-800">Don't have an account? <Link to="/signup" className="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Sign up here</Link></p>
             </form>
           </div>
           {/* <div className="lg:h-[400px] md:h-[300px] max-md:mt-8">
