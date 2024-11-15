@@ -4,7 +4,8 @@ export default function RecommendingMeals() {
   const [snackCount, setSnackCount] = useState(0);
   const [dishes, setDishes] = useState([]);
   const [submitted, setSubmitted] = useState(false);
-
+  const [selectedDish, setSelectedDish] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const defaultUrl = "https://allrecipes.com/recipe/222661/egyptian-lentil-soup/";
 
   const handleAddSnack = () => {
@@ -33,14 +34,18 @@ export default function RecommendingMeals() {
   };
 
   const handleMoreClick = (dish) => {
-    const url = dish.url || defaultUrl;
-    console.log("Opening URL:", url); // Debugging step
-    window.open(url, "_blank");
+    setSelectedDish(dish);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedDish(null);
   };
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Recommending Meals</h1>
+      <h1 className="text-6xl font-bold mb-4">Recommending Meals</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Breakfast Card */}
         <div className="border rounded-lg p-4 shadow-md">
@@ -115,10 +120,7 @@ export default function RecommendingMeals() {
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
                   <p><strong>Name:</strong> {dish.name}</p>
-                  <p><strong>Calories:</strong> {dish.calories}</p>
-                  <p><strong>Protein:</strong> {dish.protein}g</p>
-                  <p><strong>Carbs:</strong> {dish.carbs}g</p>
-                  <p><strong>Fat:</strong> {dish.fat}g</p>
+                  
                   <button onClick={() => handleMoreClick(dish)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
                 </div>
                 <div className="w-full md:w-1/3 mt-4 md:mt-0 md:ml-4">
@@ -129,6 +131,28 @@ export default function RecommendingMeals() {
           </div>
         </div>
       )}
+      {isModalOpen && selectedDish && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 h-[46%] relative">
+            <button onClick={closeModal} className="absolute top-2 right-2 text-gray-500 hover:text-gray-700">
+              &times;
+            </button>
+            <div className="max-h-full overflow-y-auto p-4">
+              <h2 className="text-2xl font-bold mb-4">{selectedDish.name}</h2>
+              <p><strong>Calories:</strong> {selectedDish.calories}</p>
+              <p><strong>Protein:</strong> {selectedDish.protein}g</p>
+              <p><strong>Carbs:</strong> {selectedDish.carbs}g</p>
+              <p><strong>Fat:</strong> {selectedDish.fat}g</p>
+              <p><strong>Vitamins:</strong> {selectedDish.vitamins}</p>
+              <p><strong>Minerals:</strong> {selectedDish.minerals}</p>
+              <div className="flex justify-center mt-4">
+                <button onClick={() => window.open(selectedDish.url, "_blank")} className="bg-blue-500 text-white px-4 py-2 rounded">Redirect</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+  
     </div>
   );
 }

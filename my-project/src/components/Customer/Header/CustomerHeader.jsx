@@ -44,21 +44,21 @@ export default function CustomerHeader() {
             <NavLink to="/customer/SubstituingUnhealthy" className={({ isActive }) =>
               `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 ${isActive ? "text-orange-700" : "text-gray-700"}`
             }>
-              Substituing unhealthy
+              Healthy Swap
             </NavLink>
           </NavbarItem>
           <NavbarItem className="mr-4">
             <NavLink to="/customer/RecommendingMeals" className={({ isActive }) =>
               `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 ${isActive ? "text-orange-700" : "text-gray-700"}`
             }>
-              Recommending meals
+              Meal Recommender
             </NavLink>
           </NavbarItem>
           <NavbarItem className="mr-4">
             <NavLink to="/customer/CompatibilityTest" className={({ isActive }) =>
               `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-orange-700 lg:p-0 ${isActive ? "text-orange-700" : "text-gray-700"}`
             }>
-              Compatibility Test
+              Ingredient Compatiblity
             </NavLink>
           </NavbarItem>
         </NavbarContent>

@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState } from "react";
 
-export default function SubstituingUnhealthy() {
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+
+export default function SubstitutingUnhealthy() {
   const [ingredient, setIngredient] = useState("");
   const [substitutes, setSubstitutes] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -13,15 +15,47 @@ export default function SubstituingUnhealthy() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (ingredient === '') {
+      toast.error('Please enter an ingredient', {
+        position: 'bottom-right',
+        autoClose: 2000,
+        style: {
+          backgroundColor: 'red',
+          color: 'white',
+        },
+      });
+      return;
+    }
+
     setLoading(true);
     setError("");
     setSubstitutes([]);
 
     try {
-      const response = await axios.get(`http://localhost:3333/api/v1/user/substitute`);
-      setSubstitutes(response.data.substitutes || []);
-    } catch (err) {
-      setError("Failed to fetch substitutes. Please try again.");
+      const url = "http://localhost:3333/api/v1/user/substitute"; // Ensure this URL is correct
+      const response = await axios.post(url, { ingredient });
+
+      if (response.status === 200) {
+        toast.success('Substitutes fetched successfully', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+
+        const { substitutes } = response.data;
+        setSubstitutes(substitutes || []);
+       
+      } else {
+        toast.error(response.data.message || 'Failed to fetch substitutes', {
+          position: 'bottom-right',
+          autoClose: 2000,
+        });
+      }
+    } catch (error) {
+      console.error('An error occurred:', error.message);
+      toast.error(error.message, {
+        position: 'bottom-right',
+        autoClose: 2000,
+      });
     } finally {
       setLoading(false);
     }
