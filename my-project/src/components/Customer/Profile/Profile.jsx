@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { useEffect, useState } from 'react';
 
 const ProfilePage = () => {
@@ -13,37 +14,43 @@ const ProfilePage = () => {
   
   const [isEdit, setIsEdit] = useState(false);
 
-  // Simulating fetching data from backend
   useEffect(() => {
-    // Replace with an actual fetch call to load initial data from backend
-    const fetchData = async () => {
-      const data = await fetch('/api/user-profile').then((res) => res.json());
-      setProfile(data);
+    const fetchDataFromCookies = () => {
+      const storedUserData = Cookies.get('userData');
+      console.log('Stored user data:', storedUserData);
+
+      if (storedUserData) {
+        const parsedData = JSON.parse(storedUserData);
+        console.log('Parsed user data:', parsedData);
+
+        const data = {
+          name: parsedData.username || '',
+          password: '', // Assuming password is not stored in cookies for security reasons
+          email: parsedData.email || '',
+          gender: parsedData.gender || '',
+          allergies: parsedData.allergies.join(', ') || '',
+          subRegion: parsedData.region.subRegion || '',
+          continent: parsedData.region.continent || ''
+        };
+        setProfile(data);
+      }
     };
-    fetchData();
+
+    fetchDataFromCookies();
   }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProfile((prev) => ({ ...prev, [name]: value }));
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/update-profile', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(profile),
-      });
-      const data = await response.json();
-      console.log("Profile updated:", data);
-      setIsEdit(false);
-    } catch (error) {
-      console.error("Error updating profile:", error);
-    }
+  const handleSubmit = () => {
+    // Handle form submission logic here
+    console.log('Profile submitted:', profile);
+    setIsEdit(false);
   };
 
   return (
@@ -83,7 +90,7 @@ const ProfilePage = () => {
               value={profile.password}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-full p-2 border rounded-md focus:outline-teal-500 "
+              className="w-full p-2 border rounded-md focus:outline-teal-500"
             />
           </div>
         </div>

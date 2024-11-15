@@ -1,9 +1,9 @@
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -37,11 +37,15 @@ const Login = () => {
           position: 'bottom-right',
           autoClose: 2000,
         });
-        // Assuming response.data contains the necessary data
+
         const { userData, accessToken, refreshToken } = response.data.data;
-        // Cookies.set('userData', JSON.stringify(userData), { expires: 1 }); // Uncomment if using cookies
-        // Cookies.set('accessToken', accessToken);
-        // Cookies.set('refreshToken', refreshToken);
+
+        // Store data in cookies
+        Cookies.set('userData', JSON.stringify(userData), { expires: 7 }); // 7 days expiry
+        Cookies.set('accessToken', accessToken, { expires: 7 });
+        Cookies.set('refreshToken', refreshToken, { expires: 7 });
+
+        console.log('User data:', userData);  
         navigate('/customer'); // Redirect to customer page after successful login
       } else {
         toast.error(response.data.message || 'Failed to log in', {
