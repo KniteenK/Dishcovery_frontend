@@ -39,15 +39,15 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: 'substituting-unhealthy',
+        path: 'SubstituingUnhealthy',
         element: <SubstituingUnhealthy />
       },
       {
-        path: 'recommending-meals',
+        path: 'RecommendingMeals',
         element: <RecommendingMeals />
       },
       {
-        path: 'new-recipe',
+        path: 'NewRecipe',
         element: <NewRecipe />
       }
     ]
