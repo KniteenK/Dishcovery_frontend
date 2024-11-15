@@ -89,7 +89,7 @@ const Login = () => {
               </div>
 
               <div>
-                <label className="text-gray-800 text-sm mb-2 block">Email / Username</label>
+                <label className="text-gray-800 text-sm mb-2 block">Email</label>
                 <div className="relative flex items-center">
                   <input name="email" type="email" required className="w-full text-sm text-gray-800 border border-gray-300 px-4 py-3 rounded-lg outline-blue-600" placeholder="Enter email or username" value={email}
               onChange={handleEmailChange} />
