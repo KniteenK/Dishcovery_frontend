@@ -1,3 +1,6 @@
+
+
+
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -7,7 +10,8 @@ export default function RecommendingMeals() {
   const [submitted, setSubmitted] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const defaultUrl = "https://allrecipes.com/recipe/222661/egyptian-lentil-soup/";
+  const [loading, setLoading] = useState(false); // New state for loading
+  const [error, setError] = useState(""); // New state for error handling
 
   const handleAddSnack = () => {
     if (snackCount < 2) {
@@ -16,6 +20,7 @@ export default function RecommendingMeals() {
   };
 
   const handleSubmit = async () => {
+    // Define meals based on user inputs
     const meals = [
       { meal: "Breakfast", name: "Oatmeal", calories: 300, protein: 10, carbs: 50, fat: 5, url: "", image: "path/to/breakfast.jpg" },
       { meal: "Lunch", name: "Chicken Salad", calories: 500, protein: 30, carbs: 40, fat: 20, url: "", image: "path/to/lunch.jpg" },
@@ -30,19 +35,26 @@ export default function RecommendingMeals() {
     }
 
     setLoading(true);
-    setError("");
-    setDishes([]);
+    setError(""); // Clear any previous error
+    setDishes([]); // Clear the previous dishes
 
     try {
-      const responses = await Promise.all(meals.map(meal => axios.post("http://localhost:3333/api/v1/user/getSubstitute", meal)));
-      responses.forEach(response => console.log(response.data));
-      setDishes(meals);
-      setSubmitted(true);
+      // Send POST request to the backend for each meal
+      const responses = await Promise.all(meals.map(meal => axios.post("http://localhost:3333/api/v1/user/mealRecommendation", meal)));
+      
+      // Process responses and display them
+      const dishesWithSubstitutes = responses.map((response, index) => ({
+        ...meals[index], // Add original meal data
+        substitute: response.data?.data || "No substitutes found", // Add substitute info from backend
+      }));
+
+      setDishes(dishesWithSubstitutes); // Update state with the fetched dishes
+      setSubmitted(true); // Mark as submitted
     } catch (error) {
-      console.error('An error occurred:', error.message);
+      console.error("An error occurred:", error.message);
       setError("Failed to fetch substitutes. Please try again.");
     } finally {
-      setLoading(false);
+      setLoading(false); // End loading
     }
   };
 
@@ -127,26 +139,35 @@ export default function RecommendingMeals() {
       <div className="mt-4">
         <button onClick={handleSubmit} className="bg-tertiary text-white px-4 py-2 rounded">Submit</button>
       </div>
+
+      {/* Loading and Error States */}
+      {loading && <p className="mt-4 text-gray-500">Loading...</p>}
+      {error && <p className="mt-4 text-red-500">{error}</p>}
+
+      {/* Dish Recommendations */}
       {submitted && (
         <div className="mt-8">
           <h2 className="text-xl font-bold mb-4">Dish Recommendations</h2>
           <div className="border rounded-lg p-4 shadow-md">
-            {dishes.map((dish, index) => (
-              <div key={index} className="flex flex-col md:flex-row items-center border-b last:border-b-0 p-4">
-                <div className="flex-1">
-                  <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
-                  <p><strong>Name:</strong> {dish.name}</p>
-                  
-                  <button onClick={() => handleMoreClick(dish)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
-                </div>
-                <div className=" md:w-1/6 md:ml-4">
-                  <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg" />
-                </div>
-              </div>
-            ))}
+          {dishes.map((dish, index) => (
+          <div key={index} className="flex flex-col md:flex-row items-center border-b last:border-b-0 p-4">
+            <div className="flex-1">
+              <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
+              <p><strong>Name:</strong> {dish.name}</p>
+              <p><strong>Substitute:</strong> {typeof dish.substitute === 'object' ? dish.substitute.name || JSON.stringify(dish.substitute) : dish.substitute}</p>
+              <button onClick={() => handleMoreClick(dish)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
+            </div>
+            <div className="md:w-1/6 md:ml-4">
+              <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg" />
+            </div>
+          </div>
+        ))}
+
           </div>
         </div>
       )}
+
+      {/* Modal for more details */}
       {isModalOpen && selectedDish && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 h-[46%] relative">
