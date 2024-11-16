@@ -57,8 +57,11 @@ export default function RecommendingMeals() {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-4xl font-bold mb-4 text-center">Recommending Meals</h1>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">Recommending Meals</h1>
+      <p className="text-gray-600 mb-8 text-center max-w-xl">
+        The best tool for Fitness freaks , allowing you to track your calories and get Ai powered recommendations that fit to your nutrient goals.
+      </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Breakfast Card */}
         <div className="border rounded-lg p-4 shadow-md">
@@ -116,13 +119,13 @@ export default function RecommendingMeals() {
       </div>
       {snackCount < 2 && (
         <div className="mt-4">
-          <button onClick={handleAddSnack} className="bg-green-500 text-white px-4 py-2 rounded">
+          <button onClick={handleAddSnack} className="bg-secondary text-white px-4 py-2 rounded">
             + Add Snack
           </button>
         </div>
       )}
       <div className="mt-4">
-        <button onClick={handleSubmit} className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
+        <button onClick={handleSubmit} className="bg-tertiary text-white px-4 py-2 rounded">Submit</button>
       </div>
       {submitted && (
         <div className="mt-8">
@@ -158,6 +161,7 @@ export default function RecommendingMeals() {
               <p><strong>Fat:</strong> {selectedDish.fat}g</p>
               <p><strong>Vitamins:</strong> {selectedDish.vitamins}</p>
               <p><strong>Minerals:</strong> {selectedDish.minerals}</p>
+
               <div className="flex justify-center mt-4">
                 <button onClick={() => window.open(selectedDish.url, "_blank")} className="bg-blue-500 text-white px-4 py-2 rounded">Redirect</button>
               </div>
