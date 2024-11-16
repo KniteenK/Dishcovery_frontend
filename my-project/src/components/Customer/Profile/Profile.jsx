@@ -54,7 +54,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-teal-200 flex items-center justify-center">
+    <div className="min-h-screen bg-secondary flex items-center justify-center">
       <div className="w-11/12 max-w-5xl bg-gray-100 p-8 rounded-lg shadow-lg flex">
         
         {/* Left Section */}
@@ -64,7 +64,7 @@ const ProfilePage = () => {
             alt="Profile"
             className="w-32 h-32 rounded-full mb-4"
           />
-          <button className="px-4 py-1 bg-teal-600 text-white rounded-full text-sm mb-6">
+          <button className="px-4 py-1 bg-primary text-white rounded-full text-sm mb-6">
             Upload Profile
           </button>
 
@@ -77,7 +77,7 @@ const ProfilePage = () => {
               value={profile.name}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-full p-2 border rounded-md focus:outline-teal-500"
+              className="w-full p-2 border rounded-md focus:outline-primary"
             />
           </div>
 
@@ -90,7 +90,7 @@ const ProfilePage = () => {
               value={profile.password}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-full p-2 border rounded-md focus:outline-teal-500"
+              className="w-full p-2 border rounded-md focus:outline-primary"
             />
           </div>
         </div>
@@ -106,7 +106,7 @@ const ProfilePage = () => {
               value={profile.email}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-3/5 p-2 border rounded-md focus:outline-teal-500"
+              className="w-3/5 p-2 border rounded-md focus:outline-primary"
             />
           </div>
 
@@ -117,7 +117,7 @@ const ProfilePage = () => {
               value={profile.gender}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-3/5 p-2 border rounded-md focus:outline-teal-500"
+              className="w-3/5 p-2 border rounded-md focus:outline-primary"
             >
               <option value="">Select</option>
               <option value="Male">Male</option>
@@ -135,7 +135,7 @@ const ProfilePage = () => {
               value={profile.allergies}
               onChange={handleChange}
               disabled={!isEdit}
-              className="w-3/5 p-2 border rounded-md focus:outline-teal-500"
+              className="w-3/5 p-2 border rounded-md focus:outline-primary"
             />
           </div>
 
@@ -169,14 +169,14 @@ const ProfilePage = () => {
             {isEdit ? (
               <button
                 onClick={handleSubmit}
-                className="px-6 py-2 bg-teal-600 text-white rounded-md"
+                className="px-6 py-2 bg-primary text-white rounded-md"
               >
                 Submit
               </button>
             ) : null}
             <button
               onClick={() => setIsEdit(!isEdit)}
-              className={`px-6 py-2 ${isEdit ? "bg-gray-300" : "bg-teal-600"} text-white rounded-md`}
+              className={`px-6 py-2 ${isEdit ? "bg-gray-300" : "bg-primary"} text-white rounded-md`}
             >
               {isEdit ? "Cancel" : "Edit"}
             </button>
