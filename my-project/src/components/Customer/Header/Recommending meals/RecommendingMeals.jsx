@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useState } from "react";
 
 export default function RecommendingMeals() {
@@ -7,8 +6,8 @@ export default function RecommendingMeals() {
   const [submitted, setSubmitted] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [loading, setLoading] = useState(false); // New state for loading
-  const [error, setError] = useState(""); // New state for error handling
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleAddSnack = () => {
     if (snackCount < 2) {
@@ -17,41 +16,74 @@ export default function RecommendingMeals() {
   };
 
   const handleSubmit = async () => {
-    // Define meals based on user inputs
-    const meals = [
-      { meal: "Breakfast", name: "Oatmeal", calories: 300, protein: 10, carbs: 50, fat: 5, url: "", image: "path/to/breakfast.jpg" },
-      { meal: "Lunch", name: "Chicken Salad", calories: 500, protein: 30, carbs: 40, fat: 20, url: "", image: "path/to/lunch.jpg" },
-      { meal: "Dinner", name: "Grilled Salmon", calories: 400, protein: 35, carbs: 20, fat: 15, url: "", image: "path/to/dinner.jpg" },
-    ];
+    setLoading(true);
+    setError("");
 
+    const breakfast = {
+      calories: document.querySelector('input[placeholder="Calories"]').value,
+      protein: document.querySelector('input[placeholder="Protein"]').value,
+      carbs: document.querySelector('input[placeholder="Carbs"]').value,
+      fat: document.querySelector('input[placeholder="Fat"]').value,
+    };
+
+    const lunch = {
+      calories: document.querySelector('input[placeholder="Calories"]').value,
+      protein: document.querySelector('input[placeholder="Protein"]').value,
+      carbs: document.querySelector('input[placeholder="Carbs"]').value,
+      fat: document.querySelector('input[placeholder="Fat"]').value,
+    };
+
+    const dinner = {
+      calories: document.querySelector('input[placeholder="Calories"]').value,
+      protein: document.querySelector('input[placeholder="Protein"]').value,
+      carbs: document.querySelector('input[placeholder="Carbs"]').value,
+      fat: document.querySelector('input[placeholder="Fat"]').value,
+    };
+
+    const snacks = [];
     if (snackCount >= 1) {
-      meals.push({ meal: "Snack 1", name: "Greek Yogurt", calories: 150, protein: 15, carbs: 10, fat: 5, url: "", image: "path/to/snack1.jpg" });
+      snacks.push({
+        calories: document.querySelector('input[placeholder="Calories"]:nth-child(1)').value,
+        protein: document.querySelector('input[placeholder="Protein"]:nth-child(1)').value,
+        carbs: document.querySelector('input[placeholder="Carbs"]:nth-child(1)').value,
+        fat: document.querySelector('input[placeholder="Fat"]:nth-child(1)').value,
+      });
     }
     if (snackCount === 2) {
-      meals.push({ meal: "Snack 2", name: "Protein Bar", calories: 200, protein: 20, carbs: 25, fat: 10, url: "", image: "path/to/snack2.jpg" });
+      snacks.push({
+        calories: document.querySelector('input[placeholder="Calories"]:nth-child(2)').value,
+        protein: document.querySelector('input[placeholder="Protein"]:nth-child(2)').value,
+        carbs: document.querySelector('input[placeholder="Carbs"]:nth-child(2)').value,
+        fat: document.querySelector('input[placeholder="Fat"]:nth-child(2)').value,
+      });
     }
 
-    setLoading(true);
-    setError(""); // Clear any previous error
-    setDishes([]); // Clear the previous dishes
-
     try {
-      // Send POST request to the backend for each meal
-      const responses = await Promise.all(meals.map(meal => axios.post("http://localhost:3333/api/v1/user/mealRecommendation", meal)));
-      
-      // Process responses and display them
-      const dishesWithSubstitutes = responses.map((response, index) => ({
-        ...meals[index], // Add original meal data
-        substitute: response.data?.data || "No substitutes found", // Add substitute info from backend
-      }));
+      const response = await fetch("http://localhost:3333/api/v1/user/mealRecommendation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          breakfast,
+          lunch,
+          dinner,
+          snacks,
+        }),
+      });
 
-      setDishes(dishesWithSubstitutes); // Update state with the fetched dishes
-      setSubmitted(true); // Mark as submitted
+      if (!response.ok) {
+        throw new Error("Something went wrong with the meal recommendation.");
+      }
+
+      const data = await response.json();
+      console.log(data.data.payload.data);
+      setDishes(data.data.payload.data.slice(0, 3));
+      setSubmitted(true);
     } catch (error) {
-      console.error("An error occurred:", error.message);
-      setError("Failed to fetch substitutes. Please try again.");
+      setError("Failed to fetch meal recommendations. Please try again.");
     } finally {
-      setLoading(false); // End loading
+      setLoading(false);
     }
   };
 
@@ -64,7 +96,6 @@ export default function RecommendingMeals() {
     setIsModalOpen(false);
     setSelectedDish(null);
   };
-  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -72,7 +103,7 @@ export default function RecommendingMeals() {
       <p className="text-gray-600 mb-8 text-center max-w-xl">
         The best tool for Fitness freaks, allowing you to track your calories and get AI-powered recommendations that fit your nutrient goals.
       </p>
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="flex flex-row gap-4">
         {/* Breakfast Card */}
         <div className="border rounded-lg p-4 shadow-md">
           <h2 className="text-xl font-semibold mb-2">Breakfast</h2>
@@ -127,14 +158,12 @@ export default function RecommendingMeals() {
           </div>
         )}
       </div>
-      {snackCount < 2 && (
-        <div className="mt-4">
+      <div className="mt-4 flex gap-4">
+        {snackCount < 2 && (
           <button onClick={handleAddSnack} className="bg-secondary text-white px-4 py-2 rounded">
             + Add Snack
           </button>
-        </div>
-      )}
-      <div className="mt-4">
+        )}
         <button onClick={handleSubmit} className="bg-tertiary text-white px-4 py-2 rounded">Submit</button>
       </div>
 
@@ -146,23 +175,25 @@ export default function RecommendingMeals() {
       {submitted && (
         <div className="mt-8">
           <h2 className="text-xl font-bold mb-4">Dish Recommendations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="flex flex-row gap-4">
             {dishes.map((dish, index) => (
               <div key={index} className="border rounded-lg p-4 shadow-md bg-white h-full flex flex-col justify-between">
+                <h3 className="text-lg font-semibold mb-2">
+                  {index === 0 ? "Breakfast" : index === 1 ? "Lunch" : "Dinner"}
+                </h3>
                 <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg mb-4" />
-                <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
+                <h3 className="text-lg font-semibold mb-2">{dish.name}</h3>
                 <p><strong>Title:</strong> {dish.Recipe_title}</p>
-                      <p><strong>Calories:</strong> {dish.calories}</p>
-                      <p><strong>Protein:</strong> {dish.protein}g</p>
-                      <p><strong>Fat:</strong> {dish.fat}g</p>
-                      <p><strong>Carbohydrate:</strong> {dish.calories}g</p>
-                      <p><strong>Energy:</strong> {dish.calories} kcal</p>
-                      <p><strong>Vegan:</strong> {dish.vegan === "1.0" ? "Yes" : "No"}</p>
-                      <p><strong>Total Time:</strong> {dish.protein} minutes</p>
-                      <p><strong>Region:</strong> {dish.protein}</p>
-                      <p><strong>Continent:</strong> {dish.protein}</p>
-                
-                <button onClick={() => handleMoreClick(dish.url)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
+                <p><strong>Calories:</strong> {dish.Calories}</p>
+                <p><strong>Protein:</strong> {dish.Protein}g</p>
+                <p><strong>Fat:</strong> {dish.fat}g</p>
+                <p><strong>Carbohydrate:</strong> {dish.carbs}g</p>
+                <p><strong>Energy:</strong> {dish.Calories} kcal</p>
+                <p><strong>Vegan:</strong> {dish.vegan === "1.0" ? "Yes" : "No"}</p>
+                <p><strong>Cook Time:</strong> {dish.cook_time} minutes</p>
+                <p><strong>Prep Time:</strong> {dish.prep_time} minutes</p>
+                <p><strong>Servings:</strong> {dish.servings}</p>
+                <button onClick={() => handleMoreClick(dish)} className="bg-primary text-white px-2 py-1 rounded mt-2">Know More</button>
               </div>
             ))}
           </div>
