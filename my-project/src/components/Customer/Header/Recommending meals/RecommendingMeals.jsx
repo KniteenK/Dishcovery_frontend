@@ -1,6 +1,3 @@
-
-
-
 import axios from "axios";
 import React, { useState } from "react";
 
@@ -67,12 +64,13 @@ export default function RecommendingMeals() {
     setIsModalOpen(false);
     setSelectedDish(null);
   };
+  
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">Recommending Meals</h1>
       <p className="text-gray-600 mb-8 text-center max-w-xl">
-        The best tool for Fitness freaks , allowing you to track your calories and get Ai powered recommendations that fit to your nutrient goals.
+        The best tool for Fitness freaks, allowing you to track your calories and get AI-powered recommendations that fit your nutrient goals.
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Breakfast Card */}
@@ -143,26 +141,30 @@ export default function RecommendingMeals() {
       {/* Loading and Error States */}
       {loading && <p className="mt-4 text-gray-500">Loading...</p>}
       {error && <p className="mt-4 text-red-500">{error}</p>}
-
+   
       {/* Dish Recommendations */}
       {submitted && (
         <div className="mt-8">
           <h2 className="text-xl font-bold mb-4">Dish Recommendations</h2>
-          <div className="border rounded-lg p-4 shadow-md">
-          {dishes.map((dish, index) => (
-          <div key={index} className="flex flex-col md:flex-row items-center border-b last:border-b-0 p-4">
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
-              <p><strong>Name:</strong> {dish.name}</p>
-              <p><strong>Substitute:</strong> {typeof dish.substitute === 'object' ? dish.substitute.name || JSON.stringify(dish.substitute) : dish.substitute}</p>
-              <button onClick={() => handleMoreClick(dish)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
-            </div>
-            <div className="md:w-1/6 md:ml-4">
-              <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg" />
-            </div>
-          </div>
-        ))}
-
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {dishes.map((dish, index) => (
+              <div key={index} className="border rounded-lg p-4 shadow-md bg-white h-full flex flex-col justify-between">
+                <img src={dish.image} alt={dish.name} className="w-full h-auto rounded-lg mb-4" />
+                <h3 className="text-lg font-semibold mb-2">{dish.meal}</h3>
+                <p><strong>Title:</strong> {dish.Recipe_title}</p>
+                      <p><strong>Calories:</strong> {dish.calories}</p>
+                      <p><strong>Protein:</strong> {dish.protein}g</p>
+                      <p><strong>Fat:</strong> {dish.fat}g</p>
+                      <p><strong>Carbohydrate:</strong> {dish.calories}g</p>
+                      <p><strong>Energy:</strong> {dish.calories} kcal</p>
+                      <p><strong>Vegan:</strong> {dish.vegan === "1.0" ? "Yes" : "No"}</p>
+                      <p><strong>Total Time:</strong> {dish.protein} minutes</p>
+                      <p><strong>Region:</strong> {dish.protein}</p>
+                      <p><strong>Continent:</strong> {dish.protein}</p>
+                
+                <button onClick={() => handleMoreClick(dish.url)} className="bg-gray-500 text-white px-2 py-1 rounded mt-2">Know More</button>
+              </div>
+            ))}
           </div>
         </div>
       )}
