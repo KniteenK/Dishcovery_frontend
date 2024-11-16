@@ -62,7 +62,7 @@ export default function CustomerHeader() {
                lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
             }
           >
-            Substituing unhealthy
+            Healthy swap
           </NavLink>
         </NavbarItem>
         <NavbarItem className="mr-4">
@@ -84,7 +84,7 @@ export default function CustomerHeader() {
                lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
             }
           >
-            Compatibility Test
+            Ingredient Compatibility Checker
           </NavLink>
         </NavbarItem>
       </NavbarContent>
@@ -99,7 +99,7 @@ export default function CustomerHeader() {
                 isBordered: true,
                 src: avatar,
               }}
-              className="transition-transform"
+              className="transition-transform "
               description={`@${username}`}
               name={fullName}
             />
