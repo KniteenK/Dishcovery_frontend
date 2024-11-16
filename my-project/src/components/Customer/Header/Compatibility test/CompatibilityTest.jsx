@@ -59,7 +59,7 @@ const CompatibilityTest = () => {
             value={ingredient1}
             onChange={(e) => setIngredient1(e.target.value)}
             placeholder="e.g. Ginger"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary hover:border-tertiary"
           />
         </div>
         <div className="mb-4">
@@ -69,7 +69,7 @@ const CompatibilityTest = () => {
             value={ingredient2}
             onChange={(e) => setIngredient2(e.target.value)}
             placeholder="e.g. Cinnamon"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary hover:border-tertiary"
           />
         </div>
         <div className="mb-4">
@@ -79,7 +79,7 @@ const CompatibilityTest = () => {
             value={ingredient3}
             onChange={(e) => setIngredient3(e.target.value)}
             placeholder="e.g. Pumpkin"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary hover:border-tertiary"
           />
         </div>
 
