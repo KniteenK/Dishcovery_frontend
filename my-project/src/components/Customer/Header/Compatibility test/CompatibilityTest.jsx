@@ -9,39 +9,49 @@ const CompatibilityTest = () => {
 
   const sendToBackend = async (endpoint, ingredients) => {
     try {
-      const response = await axios.post(endpoint, { ingredients }, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+      const res = await axios.post(
+        endpoint,
+        { ingredients },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
-      setResponse(response.data.message || 'Response received'); // Update with the response from backend
+      setResponse(res.data?.data || 'Response received'); // Use the response data
     } catch (error) {
       console.error('Error communicating with the backend:', error);
       setResponse('An error occurred while processing your request.');
     }
   };
 
-  // Handle form submission for compatibility check
   const handleCheckCompatibility = () => {
-    const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
-    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients); // Use the provided endpoint
+    const ingredients = [ingredient1, ingredient2, ingredient3].filter((i) => i.trim() !== '');
+    if (ingredients.length === 0) {
+      setResponse('Please provide at least one valid ingredient.');
+      return;
+    }
+    sendToBackend('http://localhost:3333/api/v1/user/compatibilityPredictor', ingredients);
   };
 
-  // Handle form submission for recipe generation
   const handleGenerateRecipe = () => {
-    const ingredients = [ingredient1, ingredient2, ingredient3]; // Create array of ingredients
-    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients); // Use the provided endpoint
+    const ingredients = [ingredient1, ingredient2, ingredient3].filter((i) => i.trim() !== '');
+    if (ingredients.length === 0) {
+      setResponse('Please provide at least one valid ingredient.');
+      return;
+    }
+    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients);
   };
-  console.log(ingredient1, ingredient2, ingredient3);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Check compatibility and generate new Recipe</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-4">Check Compatibility and Generate Recipe</h1>
       <p className="text-gray-600 mb-8 text-center max-w-xl">
-        The best tool for checking the compatibility of ingredients and generating a recipe ingredient compatibility analysis.
+        The best tool for checking the compatibility of ingredients and generating a recipe ingredient compatibility
+        analysis.
       </p>
 
+      {/* Input Form */}
       <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-[66%]">
-        {/* Ingredient 1 */}
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Ingredient 1</label>
           <input
@@ -49,11 +59,9 @@ const CompatibilityTest = () => {
             value={ingredient1}
             onChange={(e) => setIngredient1(e.target.value)}
             placeholder="e.g. Ginger"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-
-        {/* Ingredient 2 */}
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Ingredient 2</label>
           <input
@@ -61,11 +69,9 @@ const CompatibilityTest = () => {
             value={ingredient2}
             onChange={(e) => setIngredient2(e.target.value)}
             placeholder="e.g. Cinnamon"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
-
-        {/* Ingredient 3 */}
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Ingredient 3</label>
           <input
@@ -73,11 +79,10 @@ const CompatibilityTest = () => {
             value={ingredient3}
             onChange={(e) => setIngredient3(e.target.value)}
             placeholder="e.g. Pumpkin"
-            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-tertiary"
+            className="w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
 
-        {/* Buttons */}
         <div className="flex justify-between">
           <button
             onClick={handleCheckCompatibility}
@@ -94,10 +99,11 @@ const CompatibilityTest = () => {
         </div>
       </div>
 
-      {/* Display response in a new card */}
+      {/* Response Card */}
       {response && (
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-[66%] mt-8">
-          <p className="text-gray-700">{response}</p>
+          <h2 className="text-lg font-bold text-gray-800 mb-4">Response</h2>
+          <p className="text-gray-700">{typeof response === 'string' ? response : JSON.stringify(response)}</p>
         </div>
       )}
     </div>
