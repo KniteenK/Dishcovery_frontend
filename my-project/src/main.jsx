@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Login from './components/auth/Login.jsx';
 import Register from './components/auth/Register.jsx';
-import Home from './components/Customer/Header/Home/Home.jsx';
 import CompatibilityTest from './components/Customer/Header/Compatibility Test/CompatibilityTest.jsx';
+import Home from './components/Customer/Header/Home/Home.jsx';
 import RecommendingMeals from './components/Customer/Header/Recommending meals/RecommendingMeals.jsx';
 import SubstituingUnhealthy from './components/Customer/Header/Substituing unhealthy/Substituing unhealthy.jsx';
 import Profile from './components/Customer/Profile/Profile.jsx';
@@ -34,8 +34,9 @@ const router = createBrowserRouter([
         ]
       },
       {
-        path: 'home',
         index: true,
+        path: 'home',
+       
         element: <Home />
       },
       {

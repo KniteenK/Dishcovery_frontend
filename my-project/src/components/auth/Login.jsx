@@ -45,7 +45,7 @@ export default function Login() {
         Cookies.set('refreshToken', refreshToken, { expires: 7 });
 
         console.log('User data:', userData);  
-        navigate('/customer'); // Redirect to customer page after successful login
+        navigate('/customer/home'); // Redirect to customer page after successful login
       } else {
         toast.error(response.data.message || 'Failed to log in', {
           position: 'bottom-right',
