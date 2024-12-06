@@ -82,7 +82,7 @@ function Chatbot() {
           
           </div>
         ))}
-        {isTyping && <div className="typing-indicator">Grok is typing...</div>}
+        {isTyping && <div className="typing-indicator">Typing...</div>}
       </div>
       <div className="input-container">
         <input
