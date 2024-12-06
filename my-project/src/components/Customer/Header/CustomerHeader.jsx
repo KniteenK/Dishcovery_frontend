@@ -30,13 +30,13 @@ export default function CustomerHeader() {
 
 
   return (
-    <header className="shadow sticky top-0 z-50 bg-primary
+    <header className="shadow sticky top-0 z-45 bg-primary
     ">
     <Navbar className="h-16 flex justify-between items-center px-4">
       <NavbarContent className="flex items-center">
         <a className="flex justify-around items-center" href="/">
-          <img src="/logo.png" alt="logo" width="70" height="40"/>
-          <h1 className="font-bold text-4xl">Dishcovery</h1>
+          <img className="hidden sm:block"src="/logo.png" alt="logo" width="70" height="40"/>
+          <h1 className=" hidden lg:block font-bold text-4xl">Dishcovery</h1>
         </a>
       </NavbarContent>
   
@@ -47,8 +47,8 @@ export default function CustomerHeader() {
           <NavLink
             to="/customer/home"
             className={({ isActive }) =>
-              `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-white
-               lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
+              `hover:text-white
+                ${isActive ? "text-white" : "text-black"}`
             }
           >
             Home
@@ -58,8 +58,8 @@ export default function CustomerHeader() {
           <NavLink
             to="/customer/SubstituingUnhealthy"
             className={({ isActive }) =>
-              `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-white
-               lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
+              `hover:text-white
+                ${isActive ? "text-white" : "text-black"}`
             }
           >
             Substituing unhealthy
@@ -69,8 +69,8 @@ export default function CustomerHeader() {
           <NavLink
             to="/customer/RecommendingMeals"
             className={({ isActive }) =>
-              `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-white
-               lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
+              `hover:text-white
+                ${isActive ? "text-white" : "text-black"}`
             }
           >
             Recommending meals
@@ -80,8 +80,8 @@ export default function CustomerHeader() {
           <NavLink
             to="/customer/CompatibilityTest"
             className={({ isActive }) =>
-              `border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 hover:text-white
-               lg:p-0 ${isActive ? " text-white border-b-[100px] border-white" : "text-black"}`
+              `hover:text-white
+                ${isActive ? "text-white" : "text-black"}`
             }
           >
             Compatibility Test

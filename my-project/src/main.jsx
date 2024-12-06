@@ -12,6 +12,7 @@ import CustomerLayout from './CustomerLayout.jsx';
 import GuestLayout from './GuestLayout.jsx';
 import './index.css';
 import ProfileSettingsLayout from './ProfileSettingLayout.jsx';
+import Chatbot from './components/Customer/Header/Chatbot.jsx';
 
 const router = createBrowserRouter([
   {
@@ -50,7 +51,9 @@ const router = createBrowserRouter([
       {
         path: 'CompatibilityTest',
         element: <CompatibilityTest />
-      }
+      },
+     { path:'Chatbot',
+      element:<Chatbot/>}
     ]
   },
   {

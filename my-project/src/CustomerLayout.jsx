@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import CustomerHeader from './components/Customer/Header/CustomerHeader';
+import ChatbotButton from './icons/chatbotbutton';
 const CustomerLayout = () => {
   const location = useLocation();
 
@@ -18,6 +19,8 @@ const CustomerLayout = () => {
       <main>
         <Outlet />
       </main>
+      <ChatbotButton/>
+
     </div>
   );
 };
