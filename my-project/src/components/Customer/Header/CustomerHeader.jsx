@@ -62,7 +62,7 @@ export default function CustomerHeader() {
                 ${isActive ? "text-white" : "text-black"}`
             }
           >
-            Substituing unhealthy
+            Healthy Swap
           </NavLink>
         </NavbarItem>
         <NavbarItem className="mr-4">
@@ -95,7 +95,7 @@ export default function CustomerHeader() {
                 ${isActive ? "text-white" : "text-black"}`
             }
           >
-            Find Dish
+            Dish Scan
           </NavLink>
         </NavbarItem>
       </NavbarContent>
