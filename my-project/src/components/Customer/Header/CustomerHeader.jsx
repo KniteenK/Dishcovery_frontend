@@ -87,7 +87,19 @@ export default function CustomerHeader() {
             Compatibility Test
           </NavLink>
         </NavbarItem>
+        <NavbarItem className="mr-4">
+          <NavLink
+            to="/customer/FindDish"
+            className={({ isActive }) =>
+              `hover:text-white
+                ${isActive ? "text-white" : "text-black"}`
+            }
+          >
+            Find Dish
+          </NavLink>
+        </NavbarItem>
       </NavbarContent>
+
   
       {/* Right-side dropdown */}
       <NavbarContent className="ml-auto">
