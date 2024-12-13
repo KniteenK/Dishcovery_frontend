@@ -86,7 +86,7 @@ const CompatibilityTest = () => {
         <div className="flex justify-between">
           <button
             onClick={handleCheckCompatibility}
-            className="w-1/2 p-3 bg-white text-tertiary border border-tertiary rounded-md hover:bg-purple-50 mr-2"
+            className="w-1/2 p-3 bg-white text-tertiary border border-tertiary rounded-md  hover:bg-orange-100 mr-2"
           >
             Check Compatibility
           </button>
