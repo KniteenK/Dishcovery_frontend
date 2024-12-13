@@ -29,6 +29,18 @@ const Home = () => {
   const [prepTime, setPrepTime] = useState(30); // Initial value for preparation time
   const [vegan, setVegan] = useState(false); // Initial value for vegan
   const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleKnowMoreClick = (recipe) => {
+    setSelectedRecipe(recipe);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRecipe(null);
+  };
 
   // useEffect hook to handle the API search when filters change
   useEffect(() => {
@@ -218,34 +230,64 @@ const Home = () => {
 
         {/* Recipe Cards */}
         <div className="flex flex-wrap justify-center gap-4 mt-8">
-          {Array.isArray(filteredRecipes) && filteredRecipes.length > 0 ? (
-            filteredRecipes.map((recipe, index) => (
-              <div key={index} className="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div className="border rounded-lg p-4 shadow-sm bg-white h-full flex flex-col justify-between">
-                  <img src={recipe.img_url} alt={recipe.Recipe_title} className="w-full h-auto rounded-lg mb-4" />
-                  <h3 className="text-lg font-semibold mb-2">{recipe.Recipe_title}</h3>
-                  <p><strong>Protein:</strong> {recipe["Protein (g)"]}g</p>
-                  <p><strong>Fat:</strong> {recipe["Total lipid (fat) (g)"]}g</p>
-                  <p><strong>Carbohydrate:</strong> {recipe["Carbohydrate, by difference (g)"]}g</p>
-                  <p><strong>Energy:</strong> {recipe["Energy (kcal)"]} kcal</p>
-                  <p><strong>Vegan:</strong> {recipe.vegan === "1.0" ? "Yes" : "No"}</p>
-                  <p><strong>Total Time:</strong> {recipe.total_time} minutes</p>
-                  <p><strong>Region:</strong> {recipe.Region}</p>
-                  <p><strong>Continent:</strong> {recipe.Continent}</p>
-                  <button
-                    className="bg-tertiary text-white px-4 py-2 rounded mt-2"
-                    onClick={() => window.open(recipe.url, "_blank")}
-                  >
-                    Know More
-                  </button>
-                </div>
-              </div>
-            ))
+        {Array.isArray(filteredRecipes) && filteredRecipes.length > 0 ? (
+  filteredRecipes.map((recipe, index) => (
+    <div key={index} className="w-full md:w-1/2 lg:w-1/3 p-4">
+      <div className="border rounded-lg p-4 shadow-sm bg-white h-full flex flex-col justify-between">
+        {/* Fixed image size */}
+        <img
+          src={recipe.img_url}
+          alt={recipe.Recipe_title}
+          className="w-full h-48 object-cover rounded-lg mb-4" // Set a fixed height and width for consistency
+        />
+        <h3 className="text-lg font-semibold mb-2 line-clamp-2">{recipe.Recipe_title}</h3> {/* Add line-clamp to prevent title overflow */}
+        
+        <button
+          className="bg-tertiary text-white px-4 py-2 rounded mt-auto" // mt-auto to push the button to the bottom
+          onClick={() => handleKnowMoreClick(recipe)}
+        >
+          Know More
+        </button>
+      </div>
+    </div>
+  ))
+
+
           ) : (
             <p className="text-center text-gray-700">No recipes found.</p>
           )}
         </div>
       </div>
+      {isModalOpen && selectedRecipe && (
+  <div className="fixed inset-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+    <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+      <h2 className="text-2xl font-semibold mb-4">{selectedRecipe.name}</h2>
+      <p><strong>Carbohydrate:</strong> {selectedRecipe["Carbohydrate, by difference (g)"]}g</p>
+      <p><strong>Energy:</strong> {selectedRecipe["Energy (kcal)"]} kcal</p>
+      <p><strong>Protein:</strong> {selectedRecipe["Protein (g)"]}g</p>
+      <p><strong>Fat:</strong> {selectedRecipe["Total lipid (fat) (g)"]}g</p>
+      <p><strong>Vegan:</strong> {selectedRecipe.vegan === "1.0" ? "Yes" : "No"}</p>
+      <p><strong>Total Time:</strong> {selectedRecipe.total_time} minutes</p>
+      <p><strong>Region:</strong> {selectedRecipe.Region}</p>
+      <p><strong>Continent:</strong> {selectedRecipe.Continent}</p>
+      <div className="flex space-x-4 mt-4"> {/* Add space between buttons */}
+        <button
+          className="w-full bg-tertiary text-white px-4 py-2 rounded"
+          onClick={() => window.open(selectedRecipe.url, "_blank")}
+        >
+          Watch Recipe
+        </button>
+        <button
+          className="w-full bg-red-500 text-white px-4 py-2 rounded"
+          onClick={closeModal}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };
