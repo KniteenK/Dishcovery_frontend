@@ -1,41 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import useFileUpload from './useFileUpload'; // Import the custom hook
 
 function ShowImage() {
   const location = useLocation();
-  const [imageData, setImageData] = useState(null);
+  const navigate = useNavigate();  // For navigation after upload
+  const { file, uploading, handleChange, handleUploadFiles } = useFileUpload(); // Destructure the hook
+
+  const [imageData, setImageData] = useState(location?.state || null); // Use the passed state if available
 
   useEffect(() => {
-    // Example API fetch logic (replace with actual API call)
-    const fetchImageData = async () => {
-      const response = await fetch('/api/getImageData');  // Replace with actual API endpoint
-      const data = await response.json();
-      setImageData(data);
-    };
-
+    // If imageData is not provided via location, fetch from the API (you can adjust this logic as needed)
     if (!imageData) {
+      const fetchImageData = async () => {
+        const response = await fetch('/api/getImageData');
+        const data = await response.json();
+        setImageData(data);
+      };
       fetchImageData();
     }
   }, [imageData]);
-
-  const handleFileUpload = async (event) => {
-    const formData = new FormData();
-    formData.append('file', event.target.files[0]);
-    
-    // Example API call to upload image (replace with actual API call)
-    const response = await fetch('/api/uploadImage', {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (response.ok) {
-      // Optionally, refresh the data after upload
-      const newData = await response.json();
-      setImageData(newData);
-    } else {
-      console.error('Upload failed');
-    }
-  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
@@ -44,24 +28,26 @@ function ShowImage() {
           <img 
             src={imageData.imageUrl} 
             alt={imageData.name} 
-            className="w-64 h-64 object-cover rounded-lg shadow-md"
+            className="w-64 h-64 object-cover rounded-lg shadow-md "
           />
           <h2 className="mt-4 text-xl font-semibold text-gray-800">{imageData.name}</h2>
         </>
       ) : (
         <p className="text-gray-500">No image to display.</p>
       )}
+      
       <div className="mt-8">
         <input
           type="file"
-          onChange={handleFileUpload}
+          onChange={handleChange}
           className="border border-gray-300 p-2 rounded-lg"
         />
         <button 
-          onClick={() => document.querySelector('input[type="file"]').click()} 
+          onClick={() => handleUploadFiles(file, navigate)} 
           className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+          disabled={uploading} // Disable while uploading
         >
-          Upload More
+          {uploading ? 'Uploading...' : 'Upload Image'}
         </button>
       </div>
     </div>

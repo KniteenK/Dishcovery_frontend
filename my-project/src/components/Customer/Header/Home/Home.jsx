@@ -31,6 +31,7 @@ const Home = () => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
   const handleSearch = async () => {
+    console.log("Searching for recipes...");
     const filters = {
       searchTerm,
       selectedContinent,
@@ -66,6 +67,7 @@ const Home = () => {
           value={selectedContinent}
           onValueChange={(value) => {
             setSelectedContinent(value.length > 1 ? [value[value.length - 1]] : value);
+            handleSearch();
           }}
         >
           <div className="grid grid-cols-2 gap-4">
@@ -84,6 +86,7 @@ const Home = () => {
           value={selectedRegion}
           onValueChange={(value) => {
             setSelectedRegion(value.length > 1 ? [value[value.length - 1]] : value);
+            handleSearch();
           }}
         >
           <div className="grid grid-cols-2 gap-4">
@@ -102,7 +105,10 @@ const Home = () => {
           maxValue={1000}
           minValue={0}
           value={energy}
-          onChange={setEnergy}
+          onChange={(value) => {
+            setEnergy(value);
+            handleSearch(); // Call handleSearch when energy slider changes
+          }}
           aria-label="Energy"
           className="max-w-md"
         />
@@ -117,7 +123,10 @@ const Home = () => {
           maxValue={500}
           minValue={0}
           value={carbohydrate}
-          onChange={setCarbohydrate}
+          onChange={(value) => {
+            setCarbohydrate(value);
+            handleSearch(); // Call handleSearch when carbohydrate slider changes
+          }}
           aria-label="Carbohydrate"
           className="max-w-md"
         />
@@ -127,15 +136,18 @@ const Home = () => {
 
         <h2 className="text-lg font-semibold mt-6 mb-4">Protein</h2>
         <Slider
-          color="warning"
-          step={1}
-          maxValue={300}
-          minValue={0}
-          value={protein}
-          onChange={setProtein}
-          aria-label="Protein"
-          className="max-w-md"
-        />
+            color="warning"
+            step={1}
+            maxValue={300}
+            minValue={0}
+            value={protein}
+            onChange={(value) => {
+              setProtein(value);
+              handleSearch(); // Call handleSearch when protein slider changes
+            }}
+            aria-label="Protein"
+            className="max-w-md"
+          />
         <div className="mt-2 text-center">
           <span className="text-gray-700 text-sm">Protein: {protein}</span>
         </div>
@@ -147,7 +159,10 @@ const Home = () => {
           maxValue={200}
           minValue={0}
           value={fat}
-          onChange={setFat}
+          onChange={(value) => {
+            setFat(value);
+            handleSearch(); // Call handleSearch when fat slider changes
+          }}
           aria-label="Fat"
           className="max-w-md"
         />
@@ -156,16 +171,19 @@ const Home = () => {
         </div>
 
         <h2 className="text-lg font-semibold mt-6 mb-4">Preparation Time (minutes)</h2>
-        <Slider
-          color="warning"
-          step={1}
-          maxValue={60}
-          minValue={0}
-          value={prepTime}
-          onChange={setPrepTime}
-          aria-label="Preparation Time"
-          className="max-w-md"
-        />
+              <Slider
+        color="warning"
+        step={1}
+        maxValue={60}
+        minValue={0}
+        value={prepTime}
+        onChange={(value) => {
+          setPrepTime(value);
+          handleSearch(); // Call handleSearch when prepTime slider changes
+        }}
+        aria-label="Preparation Time"
+        className="max-w-md"
+      />
         <div className="mt-2 text-center">
           <span className="text-gray-700 text-sm">Preparation Time: {prepTime} minutes</span>
         </div>
@@ -187,7 +205,7 @@ const Home = () => {
         {/* Search Bar */}
         <div className="max-w-xl mx-auto mt-8">
           <h2 className="text-center text-2xl font-semibold mb-4">Search</h2>
-          <div className="flex items-center shadow-md bg-white rounded-full overflow-hidden">
+          <div className="flex items-center shadow-sm bg-white rounded-full overflow-hidden">
             <input
               type="text"
               placeholder="Search for a recipe..."
@@ -209,7 +227,7 @@ const Home = () => {
           {Array.isArray(filteredRecipes) && filteredRecipes.length > 0 ? (
             filteredRecipes.map((recipe, index) => (
               <div key={index} className="w-full md:w-1/2 lg:w-1/3 p-4">
-                <div className="border rounded-lg p-4 shadow-md bg-white h-full flex flex-col justify-between">
+                <div className="border rounded-lg p-4 shadow-sm bg-white h-full flex flex-col justify-between">
                   <img src={recipe.img_url} alt={recipe.Recipe_title} className="w-full h-auto rounded-lg mb-4" />
                   <h3 className="text-lg font-semibold mb-2">{recipe.Recipe_title}</h3>
                   <p><strong>Protein:</strong> {recipe["Protein (g)"]}g</p>
