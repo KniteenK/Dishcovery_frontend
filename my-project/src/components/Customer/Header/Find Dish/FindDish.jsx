@@ -20,7 +20,7 @@ function FindDish() {
   } = useFileUpload();
 
   return (
-    <div className="h-screen  bg-gray-100">
+    <div className="h-screen  bg-gray-100 flex justify-center">
       <ToastContainer />
       <main className="flex  items-center justify-center w-full max-w-screen-lg mx-auto">
         <div className="w-full flex flex-col items-start justify-center p-4 gap-4 rounded-lg">
@@ -29,8 +29,8 @@ function FindDish() {
           <p className='font-extralight'>Snap a picture of your dish and uncover its name, origin, and delicious secrets in seconds!</p>
         </div>
 
-        <div className="w-[70%] h-[80%] flex items-center justify-center p-8">
-          <div className="border-2 border-gray-300 rounded-xl p-6 w-full h-full shadow-md">
+        <div className="w-[90%] h-[40%] flex items-center justify-center p-8">
+          <div className="border-2  bg-white  border-gray-300 rounded-xl p-6 w-full h-full shadow-md">
             <div
               className={`border-4 border-dashed p-8 rounded-lg w-full h-full flex flex-col items-center justify-center text-center transition-colors ${dragging ? 'border-tertiary bg-orange-100' : 'border-gray-400 bg-white'}`}
               onDrop={handleDrop}
@@ -59,9 +59,7 @@ function FindDish() {
                   <li className="text-gray-600">{file.name}</li>
                 </ul>
               )}
-            </div>
-
-            <div className="mt-6 flex flex-col justify-center md:flex-row">
+              <div className=" mt-4 flex flex-col justify-center md:flex-row">
               <button onClick={() => handleUploadFiles(file, navigate)}
                 className={`mr-0 md:mr-4 mb-4 md:mb-0 py-2 px-6 bg-tertiary text-white rounded-md hover:bg-orange-700 transition-colors ${
 
@@ -79,6 +77,9 @@ function FindDish() {
                 Cancel Upload
               </button>
             </div>
+            </div>
+
+            
           </div>
         </div>
       </main>

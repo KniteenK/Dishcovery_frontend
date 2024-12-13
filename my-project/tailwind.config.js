@@ -10,7 +10,7 @@ module.exports = {
     extend: {
       colors: {
         primary: '#f38105',//orange
-        bgcolor:"#f9dbbd",
+        bgcolor:"#f3f4f6",
         secondary: '#f8a62e', // Yellow
         tertiary: '#ee8a3d', // light orange
       },
