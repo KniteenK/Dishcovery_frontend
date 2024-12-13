@@ -98,7 +98,7 @@ export default function RecommendingMeals() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-bgcolor">
       <h1 className="text-3xl font-bold text-gray-800 mb-4">Recommending Meals</h1>
       <p className="text-gray-600 mb-8 text-center max-w-xl">
         The best tool for Fitness freaks, allowing you to track your calories and get AI-powered recommendations that fit your nutrient goals.

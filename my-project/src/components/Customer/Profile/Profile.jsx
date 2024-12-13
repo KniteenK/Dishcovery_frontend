@@ -55,7 +55,7 @@ const ProfilePage = () => {
 
   return (
     <div className="min-h-screen bg-secondary flex items-center justify-center">
-      <div className="w-11/12 max-w-5xl bg-gray-100 p-8 rounded-lg shadow-lg flex">
+      <div className="w-11/12 max-w-5xl bg-bgcolor p-8 rounded-lg shadow-lg flex">
         
         {/* Left Section */}
         <div className="w-1/3 p-4 flex flex-col items-center bg-white rounded-lg mr-8">

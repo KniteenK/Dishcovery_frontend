@@ -183,7 +183,7 @@ const Home = () => {
       </div>
 
       {/* Main Content */}
-      <div className="w-3/4 p-8 bg-gray-100 ml-auto overflow-y-auto h-screen">
+      <div className="w-3/4 p-8 bg-bgcolor ml-auto overflow-y-auto h-screen">
         {/* Search Bar */}
         <div className="max-w-xl mx-auto mt-8">
           <h2 className="text-center text-2xl font-semibold mb-4">Search</h2>

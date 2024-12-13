@@ -51,7 +51,7 @@ export default function SubstitutingUnhealthy() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center p-4">
+    <div className="min-h-screen bg-bgcolor flex flex-col items-center p-4">
       <div className="w-full max-w-4xl bg-white p-8 rounded-lg mt-20 shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center text-gray-800">
           Substituting Unhealthy Ingredients

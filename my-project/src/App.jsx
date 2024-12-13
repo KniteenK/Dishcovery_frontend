@@ -8,7 +8,7 @@ function App() {
     <>
       <div>
         <h1 className='text-red-600'>
-          niket
+         You are on the wrong page .
         </h1>
       </div>
     </>

@@ -30,7 +30,7 @@ export default function CustomerHeader() {
 
 
   return (
-    <header className="shadow sticky top-0 z-45 bg-primary
+    <header className="shadow sticky top-0 z-45 bg-tertiary
     ">
     <Navbar className="h-16 flex justify-between items-center px-4">
       <NavbarContent className="flex items-center">
