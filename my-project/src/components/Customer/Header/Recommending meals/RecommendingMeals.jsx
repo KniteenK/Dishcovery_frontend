@@ -99,41 +99,103 @@ export default function RecommendingMeals() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-bgcolor">
-      <h1 className="text-3xl font-bold text-gray-800 mb-4">Recommending Meals</h1>
-      <p className="text-gray-600 mb-8 text-center max-w-xl">
+      <h1 className="text-6xl text-gray-700 font-extrabold">Recommending Meals</h1>
+      <p className="text-gray-600 mb-8 max-w-xl mr-6">
         The best tool for Fitness freaks, allowing you to track your calories and get AI-powered recommendations that fit your nutrient goals.
       </p>
-      <div className="flex flex-row gap-6 flex-wrap justify-center">
-        {/* Breakfast Card */}
-        <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
-          <h2 className="text-xl font-semibold mb-3">Breakfast</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <input type="text" id="breakfast-calories" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" id="breakfast-protein" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" id="breakfast-carbs" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" id="breakfast-fat" placeholder="Fat" className="border p-2 rounded" />
-          </div>
-        </div>
-        {/* Lunch Card */}
-        <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
-          <h2 className="text-xl font-semibold mb-3">Lunch</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <input type="text" id="lunch-calories" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" id="lunch-protein" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" id="lunch-carbs" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" id="lunch-fat" placeholder="Fat" className="border p-2 rounded" />
-          </div>
-        </div>
-        {/* Dinner Card */}
-        <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
-          <h2 className="text-xl font-semibold mb-3">Dinner</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <input type="text" id="dinner-calories" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" id="dinner-protein" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" id="dinner-carbs" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" id="dinner-fat" placeholder="Fat" className="border p-2 rounded" />
-          </div>
-        </div>
+      <div className="flex flex-row gap-6 flex-wrap justify-center bg-gray-100 p-6 rounded-lg">
+  {/* Breakfast Card */}
+  <div className="bg-white border rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow max-w-sm w-full">
+    <h2 className="text-xl font-semibold mb-4 text-gray-800">Breakfast</h2>
+    <div className="grid grid-cols-2 gap-4">
+      <input
+        type="text"
+        id="breakfast-calories"
+        placeholder="Calories"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        type="text"
+        id="breakfast-protein"
+        placeholder="Protein"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        type="text"
+        id="breakfast-carbs"
+        placeholder="Carbs"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+      <input
+        type="text"
+        id="breakfast-fat"
+        placeholder="Fat"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
+      />
+    </div>
+  </div>
+  {/* Lunch Card */}
+  <div className="bg-white border rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow max-w-sm w-full">
+    <h2 className="text-xl font-semibold mb-4 text-gray-800">Lunch</h2>
+    <div className="grid grid-cols-2 gap-4">
+      <input
+        type="text"
+        id="lunch-calories"
+        placeholder="Calories"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <input
+        type="text"
+        id="lunch-protein"
+        placeholder="Protein"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <input
+        type="text"
+        id="lunch-carbs"
+        placeholder="Carbs"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+      <input
+        type="text"
+        id="lunch-fat"
+        placeholder="Fat"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-green-400"
+      />
+    </div>
+  </div>
+  {/* Dinner Card */}
+  <div className="bg-white border rounded-lg p-6 shadow-lg hover:shadow-xl transition-shadow max-w-sm w-full">
+    <h2 className="text-xl font-semibold mb-4 text-gray-800">Dinner</h2>
+    <div className="grid grid-cols-2 gap-4">
+      <input
+        type="text"
+        id="dinner-calories"
+        placeholder="Calories"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+      />
+      <input
+        type="text"
+        id="dinner-protein"
+        placeholder="Protein"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+      />
+      <input
+        type="text"
+        id="dinner-carbs"
+        placeholder="Carbs"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+      />
+      <input
+        type="text"
+        id="dinner-fat"
+        placeholder="Fat"
+        className="border p-3 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-400"
+      />
+    </div>
+  </div>
+
+
         {/* Snack Cards */}
         {snackCount >= 1 && (
           <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
@@ -158,7 +220,7 @@ export default function RecommendingMeals() {
           </div>
         )}
       </div>
-      <button onClick={handleSubmit} className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-colors">
+      <button onClick={handleSubmit} className="mt-6 px-6 py-3 bg-tertiary text-white rounded-lg shadow-md hover:bg-tertiary transition-colors">
         {loading ? "Loading..." : "Get Recommendations"}
       </button>
 
