@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function RecommendingMeals() {
   const [snackCount, setSnackCount] = useState(0);
-  const [dishes, setDishes] = useState([]);
+  const [dishes, setDishes] = useState({ breakfast: [], lunch: [], dinner: [] });
   const [submitted, setSubmitted] = useState(false);
   const [selectedDish, setSelectedDish] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,41 +20,41 @@ export default function RecommendingMeals() {
     setError("");
 
     const breakfast = {
-      calories: document.querySelector('input[placeholder="Calories"]').value,
-      protein: document.querySelector('input[placeholder="Protein"]').value,
-      carbs: document.querySelector('input[placeholder="Carbs"]').value,
-      fat: document.querySelector('input[placeholder="Fat"]').value,
+      calories: document.querySelector('#breakfast-calories').value,
+      protein: document.querySelector('#breakfast-protein').value,
+      carbs: document.querySelector('#breakfast-carbs').value,
+      fat: document.querySelector('#breakfast-fat').value,
     };
 
     const lunch = {
-      calories: document.querySelector('input[placeholder="Calories"]').value,
-      protein: document.querySelector('input[placeholder="Protein"]').value,
-      carbs: document.querySelector('input[placeholder="Carbs"]').value,
-      fat: document.querySelector('input[placeholder="Fat"]').value,
+      calories: document.querySelector('#lunch-calories').value,
+      protein: document.querySelector('#lunch-protein').value,
+      carbs: document.querySelector('#lunch-carbs').value,
+      fat: document.querySelector('#lunch-fat').value,
     };
 
     const dinner = {
-      calories: document.querySelector('input[placeholder="Calories"]').value,
-      protein: document.querySelector('input[placeholder="Protein"]').value,
-      carbs: document.querySelector('input[placeholder="Carbs"]').value,
-      fat: document.querySelector('input[placeholder="Fat"]').value,
+      calories: document.querySelector('#dinner-calories').value,
+      protein: document.querySelector('#dinner-protein').value,
+      carbs: document.querySelector('#dinner-carbs').value,
+      fat: document.querySelector('#dinner-fat').value,
     };
 
     const snacks = [];
     if (snackCount >= 1) {
       snacks.push({
-        calories: document.querySelector('input[placeholder="Calories"]:nth-child(1)').value,
-        protein: document.querySelector('input[placeholder="Protein"]:nth-child(1)').value,
-        carbs: document.querySelector('input[placeholder="Carbs"]:nth-child(1)').value,
-        fat: document.querySelector('input[placeholder="Fat"]:nth-child(1)').value,
+        calories: document.querySelector('#snack1-calories').value,
+        protein: document.querySelector('#snack1-protein').value,
+        carbs: document.querySelector('#snack1-carbs').value,
+        fat: document.querySelector('#snack1-fat').value,
       });
     }
     if (snackCount === 2) {
       snacks.push({
-        calories: document.querySelector('input[placeholder="Calories"]:nth-child(2)').value,
-        protein: document.querySelector('input[placeholder="Protein"]:nth-child(2)').value,
-        carbs: document.querySelector('input[placeholder="Carbs"]:nth-child(2)').value,
-        fat: document.querySelector('input[placeholder="Fat"]:nth-child(2)').value,
+        calories: document.querySelector('#snack2-calories').value,
+        protein: document.querySelector('#snack2-protein').value,
+        carbs: document.querySelector('#snack2-carbs').value,
+        fat: document.querySelector('#snack2-fat').value,
       });
     }
 
@@ -77,8 +77,8 @@ export default function RecommendingMeals() {
       }
 
       const data = await response.json();
-      console.log(data.data.payload.data);
-      setDishes(data.data.payload.data.slice(0, 3));
+      console.log(data.data);
+      setDishes(data.data);  // Set the entire data from the API response
       setSubmitted(true);
     } catch (error) {
       setError("Failed to fetch meal recommendations. Please try again.");
@@ -108,30 +108,30 @@ export default function RecommendingMeals() {
         <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
           <h2 className="text-xl font-semibold mb-3">Breakfast</h2>
           <div className="grid grid-cols-2 gap-3">
-            <input type="text" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" placeholder="Fat" className="border p-2 rounded" />
+            <input type="text" id="breakfast-calories" placeholder="Calories" className="border p-2 rounded" />
+            <input type="text" id="breakfast-protein" placeholder="Protein" className="border p-2 rounded" />
+            <input type="text" id="breakfast-carbs" placeholder="Carbs" className="border p-2 rounded" />
+            <input type="text" id="breakfast-fat" placeholder="Fat" className="border p-2 rounded" />
           </div>
         </div>
         {/* Lunch Card */}
         <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
           <h2 className="text-xl font-semibold mb-3">Lunch</h2>
           <div className="grid grid-cols-2 gap-3">
-            <input type="text" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" placeholder="Fat" className="border p-2 rounded" />
+            <input type="text" id="lunch-calories" placeholder="Calories" className="border p-2 rounded" />
+            <input type="text" id="lunch-protein" placeholder="Protein" className="border p-2 rounded" />
+            <input type="text" id="lunch-carbs" placeholder="Carbs" className="border p-2 rounded" />
+            <input type="text" id="lunch-fat" placeholder="Fat" className="border p-2 rounded" />
           </div>
         </div>
         {/* Dinner Card */}
         <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
           <h2 className="text-xl font-semibold mb-3">Dinner</h2>
           <div className="grid grid-cols-2 gap-3">
-            <input type="text" placeholder="Calories" className="border p-2 rounded" />
-            <input type="text" placeholder="Protein" className="border p-2 rounded" />
-            <input type="text" placeholder="Carbs" className="border p-2 rounded" />
-            <input type="text" placeholder="Fat" className="border p-2 rounded" />
+            <input type="text" id="dinner-calories" placeholder="Calories" className="border p-2 rounded" />
+            <input type="text" id="dinner-protein" placeholder="Protein" className="border p-2 rounded" />
+            <input type="text" id="dinner-carbs" placeholder="Carbs" className="border p-2 rounded" />
+            <input type="text" id="dinner-fat" placeholder="Fat" className="border p-2 rounded" />
           </div>
         </div>
         {/* Snack Cards */}
@@ -139,10 +139,10 @@ export default function RecommendingMeals() {
           <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold mb-3">Snack 1</h2>
             <div className="grid grid-cols-2 gap-3">
-              <input type="text" placeholder="Calories" className="border p-2 rounded" />
-              <input type="text" placeholder="Protein" className="border p-2 rounded" />
-              <input type="text" placeholder="Carbs" className="border p-2 rounded" />
-              <input type="text" placeholder="Fat" className="border p-2 rounded" />
+              <input type="text" id="snack1-calories" placeholder="Calories" className="border p-2 rounded" />
+              <input type="text" id="snack1-protein" placeholder="Protein" className="border p-2 rounded" />
+              <input type="text" id="snack1-carbs" placeholder="Carbs" className="border p-2 rounded" />
+              <input type="text" id="snack1-fat" placeholder="Fat" className="border p-2 rounded" />
             </div>
           </div>
         )}
@@ -150,103 +150,57 @@ export default function RecommendingMeals() {
           <div className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
             <h2 className="text-xl font-semibold mb-3">Snack 2</h2>
             <div className="grid grid-cols-2 gap-3">
-              <input type="text" placeholder="Calories" className="border p-2 rounded" />
-              <input type="text" placeholder="Protein" className="border p-2 rounded" />
-              <input type="text" placeholder="Carbs" className="border p-2 rounded" />
-              <input type="text" placeholder="Fat" className="border p-2 rounded" />
+              <input type="text" id="snack2-calories" placeholder="Calories" className="border p-2 rounded" />
+              <input type="text" id="snack2-protein" placeholder="Protein" className="border p-2 rounded" />
+              <input type="text" id="snack2-carbs" placeholder="Carbs" className="border p-2 rounded" />
+              <input type="text" id="snack2-fat" placeholder="Fat" className="border p-2 rounded" />
             </div>
           </div>
         )}
       </div>
-      <div className="mt-6 flex gap-4">
-        {snackCount < 2 && (
-          <button
-            onClick={handleAddSnack}
-            className="bg-secondary text-white px-4 py-2 rounded hover:bg-secondary-dark transition-colors"
-          >
-            + Add Snack
-          </button>
-        )}
-        <button
-          onClick={handleSubmit}
-          className="bg-tertiary text-white px-4 py-2 rounded hover:bg-tertiary-dark transition-colors"
-        >
-          Submit
-        </button>
-      </div>
-  
-      {/* Loading and Error States */}
-      {loading && <p className="mt-4 text-gray-500 animate-pulse">Loading...</p>}
-      {error && <p className="mt-4 text-red-500">{error}</p>}
-  
-      {/* Dish Recommendations */}
+      <button onClick={handleSubmit} className="mt-6 px-6 py-3 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition-colors">
+        {loading ? "Loading..." : "Get Recommendations"}
+      </button>
+
       {submitted && (
-        <div className="mt-8">
-          <h2 className="text-xl font-bold mb-6">Dish Recommendations</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {dishes.map((dish, index) => (
-              <div
-                key={index}
-                className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow bg-white flex flex-col justify-between"
-              >
-                <h3 className="text-lg font-semibold mb-3">
-                  {index === 0 ? "Breakfast" : index === 1 ? "Lunch" : "Dinner"}
-                </h3>
-                <img
-                  src={dish.image}
-                  alt={dish.name}
-                  className="w-full h-48 object-cover rounded-lg mb-3"
-                />
-                <h3 className="text-lg font-semibold mb-2">{dish.name}</h3>
-                <p><strong>Title:</strong> {dish.Recipe_title}</p>
-                <p><strong>Calories:</strong> {dish.Calories}</p>
-                <p><strong>Protein:</strong> {dish.Protein}g</p>
-                <p><strong>Fat:</strong> {dish.fat}g</p>
-                <p><strong>Carbohydrate:</strong> {dish.carbs}g</p>
-                <p><strong>Energy:</strong> {dish.Calories} kcal</p>
-                <p><strong>Vegan:</strong> {dish.vegan === "1.0" ? "Yes" : "No"}</p>
-                <p><strong>Cook Time:</strong> {dish.cook_time} minutes</p>
-                <p><strong>Prep Time:</strong> {dish.prep_time} minutes</p>
-                <p><strong>Servings:</strong> {dish.servings}</p>
-                <button
-                  onClick={() => handleMoreClick(dish)}
-                  className="bg-primary text-white px-3 py-1 rounded mt-3 hover:bg-primary-dark transition-colors"
-                >
-                  Know More
-                </button>
+        <div className="mt-6">
+          <h3 className="text-xl font-semibold mb-4">Recommended Meals</h3>
+          <div className="flex flex-wrap gap-4 justify-center">
+            {/* Display Breakfast */}
+            {dishes.breakfast?.slice(0, 1).map((dish) => (
+              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
+                <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
+                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
+              </div>
+            ))}
+            {/* Display Lunch */}
+            {dishes.lunch?.slice(1, 2).map((dish) => (
+              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
+                <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
+                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
+              </div>
+            ))}
+            {/* Display Dinner */}
+            {dishes.dinner?.slice(2, 3).map((dish) => (
+              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+                <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
+                <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
+                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
               </div>
             ))}
           </div>
         </div>
       )}
-  
-      {/* Modal for more details */}
+
       {isModalOpen && selectedDish && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 h-auto relative">
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-            >
-              &times;
-            </button>
-            <div className="overflow-y-auto">
-              <h2 className="text-2xl font-bold mb-6">{selectedDish.name}</h2>
-              <p><strong>Calories:</strong> {selectedDish.calories}</p>
-              <p><strong>Protein:</strong> {selectedDish.protein}g</p>
-              <p><strong>Carbs:</strong> {selectedDish.carbs}g</p>
-              <p><strong>Fat:</strong> {selectedDish.fat}g</p>
-              <p><strong>Vitamins:</strong> {selectedDish.vitamins}</p>
-              <p><strong>Minerals:</strong> {selectedDish.minerals}</p>
-              <div className="flex justify-center mt-6">
-                <button
-                  onClick={() => window.open(selectedDish.url, "_blank")}
-                  className="bg-blue-500 text-white px-5 py-2 rounded hover:bg-blue-600 transition-colors"
-                >
-                  Redirect
-                </button>
-              </div>
-            </div>
+        <div className="fixed top-0 left-0 right-0 bottom-0 bg-gray-500 bg-opacity-50 flex justify-center items-center">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+            <h2 className="text-2xl font-semibold mb-4">{selectedDish.Recipe_title}</h2>
+            <img src={selectedDish.img_url} alt={selectedDish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
+            <p>{selectedDish.Recipe_description}</p>
+            <button onClick={closeModal} className="mt-4 text-white bg-red-500 px-4 py-2 rounded">Close</button>
           </div>
         </div>
       )}

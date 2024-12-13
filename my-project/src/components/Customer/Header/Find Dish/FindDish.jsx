@@ -1,77 +1,23 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useFileUpload from './useFileUpload';
 
 function FindDish() {
-  const [dragging, setDragging] = useState(false);
-  const [file, setFile] = useState(null);
-  const [uploading, setUploading] = useState(false);
+    const [dragging, setDragging] = useState(false);
+
   const navigate = useNavigate();
-
-  const handleDrop = (e) => {
-    e.preventDefault();
-    setDragging(false);
-    const droppedFile = e.dataTransfer.files[0];
-    setFile(droppedFile);
-  };
-
-  const handleDrag = (e) => {
-    e.preventDefault();
-  };
-
-  const handleDragState = (isDragging) => (e) => {
-    e.preventDefault();
-    setDragging(isDragging);
-  };
-
-  const handleChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
-  };
-
-  const handleUploadFiles = async () => {
-    if (!file) {
-      toast.info("No file selected. Please select a JPEG, JPG, or PNG file.");
-      return;
-    }
-
-    setUploading(true);
-
-    const formData = new FormData();
-    formData.append('file', file);
-
-    try {
-      const response = await fetch('http://localhost:5000/upload', {
-        method: 'POST',
-        body: formData,
-      });
-      const data = await response.json();
-
-      if (response.ok) {
-        setUploading(false);
-        const result = {
-          imageUrl: data.filePath, // Server response with the file path
-          name: file.name,
-        };
-        setFile(null);
-        toast.success('File uploaded successfully!');
-        navigate('/customer/show-image', { state: result }); // Pass the file path to the next page
-      } else {
-        throw new Error('Upload failed');
-      }
-    } catch (error) {
-      console.error('Error uploading file:', error);
-      toast.error('Error uploading file.');
-      setUploading(false);
-    }
-  };
-
-  const handleCancelUpload = () => {
-    setUploading(false);
-    setFile(null);
-    toast.info('File upload canceled.');
-  };
+  const {
+    file,
+    uploading,
+    handleDrop,
+    handleDrag,
+    handleDragState,
+    handleChange,
+    handleUploadFiles,
+    handleCancelUpload,
+  } = useFileUpload();
 
   return (
     <div className="mt-[10%]">
@@ -115,7 +61,7 @@ function FindDish() {
 
             <div className="mt-6 flex flex-col md:flex-row">
               <button
-                onClick={handleUploadFiles}
+                onClick={() => handleUploadFiles(file, navigate)}
                 className={`mr-0 md:mr-4 mb-4 md:mb-0 py-2 px-6 bg-orange-500 text-white rounded-md hover:bg-orange-700 transition-colors ${
                   uploading ? 'opacity-50 cursor-not-allowed' : ''
                 }`}
