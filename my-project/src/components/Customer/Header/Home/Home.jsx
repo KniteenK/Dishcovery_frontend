@@ -1,6 +1,6 @@
 import { Checkbox, CheckboxGroup, Slider } from "@nextui-org/react";
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Continent = [
   { name: "Asian", count: 6480 },
@@ -30,31 +30,46 @@ const Home = () => {
   const [vegan, setVegan] = useState(false); // Initial value for vegan
   const [filteredRecipes, setFilteredRecipes] = useState([]);
 
-  const handleSearch = async () => {
-    console.log("Searching for recipes...");
-    const filters = {
-      searchTerm,
-      selectedContinent,
-      selectedRegion,
-      energy,
-      carbohydrate,
-      protein,
-      fat,
-      prepTime,
-      vegan,
+  // useEffect hook to handle the API search when filters change
+  useEffect(() => {
+    const handleSearch = async () => {
+      console.log("Searching for recipes...");
+      const filters = {
+        searchTerm,
+        selectedContinent,
+        selectedRegion,
+        energy,
+        carbohydrate,
+        protein,
+        fat,
+        prepTime,
+        vegan,
+      };
+
+      console.log("Posting to API with filters:", filters);
+
+      try {
+        const response = await axios.post("http://localhost:3333/api/v1/user/advSearch", filters);
+        console.log("API Response:", response.data.data.data);
+        setFilteredRecipes(response.data.data || []);
+      } catch (error) {
+        console.error("An error occurred while fetching recipes:", error);
+        setFilteredRecipes([]);
+      }
     };
 
-    console.log("Posting to API with filters:", filters);
-
-    try {
-      const response = await axios.post("http://localhost:3333/api/v1/user/advSearch", filters);
-      console.log("API Response:", response.data.data.payload.data);
-      setFilteredRecipes(response.data.data.payload.data || []);
-    } catch (error) {
-      console.error("An error occurred while fetching recipes:", error);
-      setFilteredRecipes([]);
-    }
-  };
+    handleSearch(); // Trigger search whenever any of the filters change
+  }, [
+    searchTerm,
+    selectedContinent,
+    selectedRegion,
+    energy,
+    carbohydrate,
+    protein,
+    fat,
+    prepTime,
+    vegan,
+  ]);
 
   return (
     <div className="flex min-h-screen">
@@ -65,10 +80,7 @@ const Home = () => {
           label="Select One Continent"
           color="warning"
           value={selectedContinent}
-          onValueChange={(value) => {
-            setSelectedContinent(value.length > 1 ? [value[value.length - 1]] : value);
-            handleSearch();
-          }}
+          onValueChange={(value) => setSelectedContinent(value.length > 1 ? [value[value.length - 1]] : value)}
         >
           <div className="grid grid-cols-2 gap-4">
             {Continent.map((continent) => (
@@ -84,10 +96,7 @@ const Home = () => {
           label="Select One Region"
           color="warning"
           value={selectedRegion}
-          onValueChange={(value) => {
-            setSelectedRegion(value.length > 1 ? [value[value.length - 1]] : value);
-            handleSearch();
-          }}
+          onValueChange={(value) => setSelectedRegion(value.length > 1 ? [value[value.length - 1]] : value)}
         >
           <div className="grid grid-cols-2 gap-4">
             {Region.map((region) => (
@@ -105,10 +114,7 @@ const Home = () => {
           maxValue={1000}
           minValue={0}
           value={energy}
-          onChange={(value) => {
-            setEnergy(value);
-            handleSearch(); // Call handleSearch when energy slider changes
-          }}
+          onChange={setEnergy}
           aria-label="Energy"
           className="max-w-md"
         />
@@ -123,10 +129,7 @@ const Home = () => {
           maxValue={500}
           minValue={0}
           value={carbohydrate}
-          onChange={(value) => {
-            setCarbohydrate(value);
-            handleSearch(); // Call handleSearch when carbohydrate slider changes
-          }}
+          onChange={setCarbohydrate}
           aria-label="Carbohydrate"
           className="max-w-md"
         />
@@ -136,18 +139,15 @@ const Home = () => {
 
         <h2 className="text-lg font-semibold mt-6 mb-4">Protein</h2>
         <Slider
-            color="warning"
-            step={1}
-            maxValue={300}
-            minValue={0}
-            value={protein}
-            onChange={(value) => {
-              setProtein(value);
-              handleSearch(); // Call handleSearch when protein slider changes
-            }}
-            aria-label="Protein"
-            className="max-w-md"
-          />
+          color="warning"
+          step={1}
+          maxValue={300}
+          minValue={0}
+          value={protein}
+          onChange={setProtein}
+          aria-label="Protein"
+          className="max-w-md"
+        />
         <div className="mt-2 text-center">
           <span className="text-gray-700 text-sm">Protein: {protein}</span>
         </div>
@@ -159,10 +159,7 @@ const Home = () => {
           maxValue={200}
           minValue={0}
           value={fat}
-          onChange={(value) => {
-            setFat(value);
-            handleSearch(); // Call handleSearch when fat slider changes
-          }}
+          onChange={setFat}
           aria-label="Fat"
           className="max-w-md"
         />
@@ -171,19 +168,16 @@ const Home = () => {
         </div>
 
         <h2 className="text-lg font-semibold mt-6 mb-4">Preparation Time (minutes)</h2>
-              <Slider
-        color="warning"
-        step={1}
-        maxValue={60}
-        minValue={0}
-        value={prepTime}
-        onChange={(value) => {
-          setPrepTime(value);
-          handleSearch(); // Call handleSearch when prepTime slider changes
-        }}
-        aria-label="Preparation Time"
-        className="max-w-md"
-      />
+        <Slider
+          color="warning"
+          step={1}
+          maxValue={60}
+          minValue={0}
+          value={prepTime}
+          onChange={setPrepTime}
+          aria-label="Preparation Time"
+          className="max-w-md"
+        />
         <div className="mt-2 text-center">
           <span className="text-gray-700 text-sm">Preparation Time: {prepTime} minutes</span>
         </div>
@@ -215,7 +209,7 @@ const Home = () => {
             />
             <button
               className="bg-secondary text-white px-6 py-4 rounded-r-full"
-              onClick={handleSearch}
+              onClick={() => setSearchTerm(searchTerm)} // Just update search term and let useEffect handle the search
             >
               Search Now
             </button>

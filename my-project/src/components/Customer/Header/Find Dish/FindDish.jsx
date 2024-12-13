@@ -15,7 +15,6 @@ function FindDish() {
     handleDrag,
     handleDragState,
     handleChange,
-    handleUploadFiles,
     handleCancelUpload,
   } = useFileUpload();
 
@@ -91,15 +90,17 @@ function FindDish() {
                 </ul>
               )}
               <div className="mt-4 flex flex-col justify-center md:flex-row">
+                {/* Upload button that calls handleUpload on click */}
                 <button
                   onClick={handleUpload}
                   className={`mr-0 md:mr-4 mb-4 md:mb-0 py-2 px-6 bg-tertiary text-white rounded-md hover:bg-orange-700 transition-colors ${
-                    uploading ? 'opacity-50 cursor-not-allowed' : ''
+                    uploading || !file ? 'opacity-50 cursor-not-allowed' : ''
                   }`}
                   disabled={uploading || !file}
                 >
                   {uploading ? 'Uploading...' : 'Upload File'}
                 </button>
+                {/* Cancel upload button */}
                 <button
                   onClick={handleCancelUpload}
                   className="py-2 px-6 bg-white text-tertiary border border-tertiary rounded-md hover:bg-orange-100 transition-colors cursor-pointer"
