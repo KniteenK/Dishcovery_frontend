@@ -230,26 +230,26 @@ export default function RecommendingMeals() {
           <div className="flex flex-wrap gap-4 justify-center">
             {/* Display Breakfast */}
             {dishes.breakfast?.slice(0, 1).map((dish) => (
-              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <div key={dish.Recipe_id} className="border bg-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
                 <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
-                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
+                <button onClick={() => handleMoreClick(dish)} className="text-tertiary">View More</button>
               </div>
             ))}
             {/* Display Lunch */}
             {dishes.lunch?.slice(1, 2).map((dish) => (
-              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <div key={dish.Recipe_id} className="border  bg-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
                 <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
-                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
+                <button onClick={() => handleMoreClick(dish)} className="text-tertiary">View More</button>
               </div>
             ))}
             {/* Display Dinner */}
             {dishes.dinner?.slice(2, 3).map((dish) => (
-              <div key={dish.Recipe_id} className="border rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
+              <div key={dish.Recipe_id} className="border  bg-white rounded-lg p-4 shadow-lg hover:shadow-xl transition-shadow">
                 <img src={dish.img_url} alt={dish.Recipe_title} className="w-full h-40 object-cover rounded mb-3" />
                 <h3 className="text-lg font-semibold mb-2">{dish.Recipe_title}</h3>
-                <button onClick={() => handleMoreClick(dish)} className="text-blue-500">View More</button>
+                <button onClick={() => handleMoreClick(dish)} className="text-tertiary">View More</button>
               </div>
             ))}
           </div>
