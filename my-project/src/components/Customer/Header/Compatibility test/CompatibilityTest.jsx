@@ -6,32 +6,48 @@ const CompatibilityTest = () => {
   const [ingredient2, setIngredient2] = useState('');
   const [ingredient3, setIngredient3] = useState('');
   const [response, setResponse] = useState('');
+  const[recipieResponse, setRecipieResponse]=useState('')
 
-  const sendToBackend = async (endpoint, ingredients) => {
+  const sendToBackend = async (endpoint, ingredients, type) => {
     try {
+      // Prepare the message for the recipe request
+      const messages = [
+        {
+          role: "user",
+          content: `Find a recipe that uses the following ingredients: ${ingredients.join(", ")}.`,
+        },
+      ];
+  
+      // Make the request to the backend based on the type of request (Generate Recipe or Check Compatibility)
       const res = await axios.post(
         endpoint,
-        { ingredients },
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
+        {ingredients},
+        {  messages },  // Sending both ingredients and the message
+        { headers: { 'Content-Type': 'application/json' } }
       );
-
-      setResponse(res.data?.data || 'Response received'); // Use the response data
+  
+      // Handle response based on type
+      if (type === 'generateRecipe') {
+        setResponse(res.data?.data|| 'Recipe suggestion received.');
+      } else if (type === 'checkCompatibility') {
+        setResponse(res.data?.data|| 'Compatibility check completed.');
+      }
+  
     } catch (error) {
       console.error('Error communicating with the backend:', error);
       setResponse('An error occurred while processing your request.');
     }
   };
-
+  
+  
   const handleCheckCompatibility = () => {
     const ingredients = [ingredient1, ingredient2, ingredient3].filter((i) => i.trim() !== '');
     if (ingredients.length === 0) {
       setResponse('Please provide at least one valid ingredient.');
       return;
     }
-    sendToBackend('http://localhost:3333/api/v1/user/compatibilityPredictor', ingredients);
-  };
+    sendToBackend('http://localhost:3333/api/v1/user/compatibilityPredictor', ingredients, 'checkCompatibility');
+  }
 
   const handleGenerateRecipe = () => {
     const ingredients = [ingredient1, ingredient2, ingredient3].filter((i) => i.trim() !== '');
@@ -39,7 +55,8 @@ const CompatibilityTest = () => {
       setResponse('Please provide at least one valid ingredient.');
       return;
     }
-    sendToBackend('http://localhost:3333/api/v1/user/getSubstitute', ingredients);
+    sendToBackend('http://localhost:3333/api/v1/user/webSearch', ingredients ,'generateRecipe'); 
+    // API endpoint
   };
   
   return (
@@ -103,7 +120,7 @@ const CompatibilityTest = () => {
       {response && (
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-[66%] mt-8">
           <h2 className="text-lg font-bold text-gray-800 mb-4">Response</h2>
-          <p className="text-gray-700">{typeof response === 'string' ? response : JSON.stringify(response)}</p>
+          <p className="text-gray-700">{typeof response === 'string' ? response : JSON.stringify(response).replace(/[{}[\]"]/g, '')}</p>
         </div>
       )}
     </div>
